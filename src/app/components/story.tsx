@@ -102,13 +102,23 @@ const tabs = [
   return (
     <InstantSearch searchClient={searchClient} indexName="instant_search">
       <SearchBox />
-      <Hits hitComponent={Hit} />
+      <Hits
+        hitComponent={({ hit }) => (
+          <>
+            <img src={hit.image} alt={hit.name} />
+            <h2>
+              <Highlight hit={hit} attribute="name" />
+            </h2>
+            <p>
+              <Snippet hit={hit} attribute="description" />
+            </p>
+            <Tags tags={hit.categories} />
+            <Carousel urls={hit.screenshots} />
+          </>
+        )}
+      />
     </InstantSearch>
   );
-}
-
-function Hit({ hit }) {
-  {/* ... */}
 }`,
       },
     ],
