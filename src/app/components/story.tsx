@@ -1,36 +1,48 @@
-"use client";
+'use client';
 
-import cx from "classnames";
-import algoliasearch from "algoliasearch/lite";
-import { Highlight, Hits, InstantSearch, SearchBox } from "react-instantsearch";
-import { Hit } from "instantsearch.js";
-import { useState } from "react";
-import HighlightCode from "react-highlight";
-import Image from "next/image";
+import cx from 'classnames';
+import algoliasearch from 'algoliasearch/lite';
+import { Hit } from 'instantsearch.js';
+import {
+  Configure,
+  Highlight,
+  Hits,
+  InstantSearch,
+  Snippet,
+} from 'react-instantsearch';
+import { useState } from 'react';
+import HighlightCode from 'react-highlight';
+import Image from 'next/image';
+
+import { SearchBox } from './demo/SearchBox';
 
 const searchClient = algoliasearch(
-  "PVXYD3XMQP",
-  "69636a752c16bee55133304edea993f7"
+  'PVXYD3XMQP',
+  '69636a752c16bee55133304edea993f7'
 );
+
+function RawHit({ hit }: HitProps) {
+  return (
+    <pre className="bg-gray-200 overflow-scroll text-sm aspect-square text-grey-600 p-4 rounded-lg">
+      {JSON.stringify(hit, null, 2)}
+    </pre>
+  );
+}
 
 const tabs = [
   {
-    name: "Complementary reco",
-    href: "#",
-    title: "Complementary recommendations",
+    name: 'Complementary reco',
+    href: '#',
+    title: 'Complementary recommendations',
     description:
       "In this demo, we'll show you how to build a search page. And then add your own recommendations.",
     story: [
       {
-        id: "1",
-        name: "Set up InstantSearch",
+        id: '1',
+        name: 'Set up InstantSearch',
         description:
-          "Install the <code>react-instantsearch</code> package. And create your DOM structure.",
-        app: (
-          <div>
-            <h1>Search</h1>
-          </div>
-        ),
+          'Install the <code>react-instantsearch</code> package. And create your DOM structure.',
+        app: <div></div>,
         code: `function App() {
   return (
     <InstantSearch searchClient={searchClient} indexName="instant_search">
@@ -40,13 +52,12 @@ const tabs = [
 }`,
       },
       {
-        id: "2",
-        name: "Add a search box",
+        id: '2',
+        name: 'Add a search box',
         description:
-          "Add a search box to your page. It will let your users search for products.",
+          'Add a search box to your page. It will let your users search for products.',
         app: (
           <div>
-            <h1>Search</h1>
             <SearchBox />
           </div>
         ),
@@ -59,15 +70,17 @@ const tabs = [
 }`,
       },
       {
-        id: "3",
-        name: "Add hits",
+        id: '3',
+        name: 'Add hits',
         description:
-          "Add a hits widget to your page. It will display the results of your search.",
+          'Add a hits widget to your page. It will display the results of your search.',
         app: (
           <div>
-            <h1>Search</h1>
             <SearchBox />
-            <Hits />
+            <Hits
+              classNames={{ list: 'grid grid-cols-3 gap-2' }}
+              hitComponent={RawHit}
+            />
           </div>
         ),
         code: `function App() {
@@ -80,15 +93,14 @@ const tabs = [
 }`,
       },
       {
-        id: "4",
-        name: "Customize hits",
+        id: '4',
+        name: 'Customize hits',
         description:
-          "Customize the rendering of your hits. You can use the <code>hitComponent</code> prop.",
+          'Customize the rendering of your hits. You can use the <code>hitComponent</code> prop.',
         app: (
           <div>
-            <h1>Search</h1>
             <SearchBox />
-            <Hits hitComponent={Hit} />
+            <Hits classNames={{ list: 'space-y-8' }} hitComponent={Hit} />
           </div>
         ),
         code: `function App() {
@@ -107,31 +119,31 @@ function Hit({ hit }) {
     ],
   },
   {
-    name: "Alternative reco",
-    href: "#",
-    title: "foo bar baz",
-    description: "bar baz qux",
+    name: 'Alternative reco',
+    href: '#',
+    title: 'foo bar baz',
+    description: 'bar baz qux',
     story: [],
   },
   {
-    name: "Trending items",
-    href: "#",
-    title: "foo bar baz",
-    description: "bar baz qux",
+    name: 'Trending items',
+    href: '#',
+    title: 'foo bar baz',
+    description: 'bar baz qux',
     story: [],
   },
   {
-    name: "Trending facets value",
-    href: "#",
-    title: "foo bar baz",
-    description: "bar baz qux",
+    name: 'Trending facets value',
+    href: '#',
+    title: 'foo bar baz',
+    description: 'bar baz qux',
     story: [],
   },
   {
-    name: "Looking similar",
-    href: "#",
-    title: "foo bar baz",
-    description: "bar baz qux",
+    name: 'Looking similar',
+    href: '#',
+    title: 'foo bar baz',
+    description: 'bar baz qux',
     story: [],
   },
 ];
@@ -145,6 +157,10 @@ const Story = () => {
 
   return (
     <InstantSearch searchClient={searchClient} indexName="games">
+      <Configure
+        hitsPerPage={9}
+        attributesToSnippet={['short_description:20']}
+      />
       <div className="w-full">
         <div className="grid grid-cols-2 gap-6">
           <div className="bg-grey-100 shadow-lg rounded-xl text-black">
@@ -162,12 +178,12 @@ const Story = () => {
                     href={tab.href}
                     className={cx(
                       currentTabIndex === index
-                        ? "bg-xenon-100 text-xenon-500"
-                        : "text-grey-600 hover:text-grey-700",
-                      "rounded-full px-3 py-2 text-xs font-medium uppercase"
+                        ? 'bg-xenon-100 text-xenon-500'
+                        : 'text-grey-600 hover:text-grey-700',
+                      'rounded-full px-3 py-2 text-xs font-medium uppercase'
                     )}
                     aria-current={
-                      currentTabIndex === index ? "page" : undefined
+                      currentTabIndex === index ? 'page' : undefined
                     }
                     onClick={() => setCurrentTabIndex(index)}
                   >
@@ -191,7 +207,7 @@ const Story = () => {
                     <h3 className="text-lg font-bold leading-6 text-grey-900">
                       <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-grey-100 text-grey-800">
                         {currentStep.id}
-                      </span>{" "}
+                      </span>{' '}
                       {currentStep.name}
                     </h3>
 
@@ -246,29 +262,36 @@ type HitProps = {
     name: string;
     short_description: string;
     tags: string[];
+    genres: string[];
     screenshots: string[];
   }>;
 };
 
 function Hit({ hit }: HitProps) {
   return (
-    <div className="grid grid-cols-3 my-4 gap-3">
-      <Image
-        src={hit.header_image}
-        width={460}
-        height={215}
-        alt={hit.name}
-        className="aspect-video w-full"
-      />
-      <div className="col-span-2">
-        <h2 className="text-xl font-bold">
-          <Highlight hit={hit} attribute="name" />
-        </h2>
-        <p>{hit.short_description}</p>
+    <div className="space-y-4">
+      <div className="grid grid-cols-3 gap-3">
+        <Image
+          src={hit.header_image}
+          width={460}
+          height={215}
+          alt={hit.name}
+          className="aspect-video w-full rounded"
+        />
+        <div className="col-span-2">
+          <h2 className="text-xl font-bold">
+            <Highlight hit={hit} attribute="name" />
+          </h2>
+          <p>
+            <Snippet hit={hit} attribute="short_description" />
+          </p>
+        </div>
+      </div>
+      <div className="space-y-4">
         <Tags tags={hit.tags} />
         {hit.screenshots.length && (
-          <ul className="grid grid-cols-4 -mx-1">
-            {hit.screenshots.slice(0, 4).map((screenshot) => (
+          <ul className="grid grid-cols-5 -mx-1">
+            {hit.screenshots.slice(0, 5).map((screenshot) => (
               <li key={screenshot} className="block mx-1">
                 <Image
                   src={screenshot}
@@ -300,7 +323,7 @@ function Tags({ tags }: TagsProps) {
         <span className="inline-block bg-grey-200 rounded py-1 px-2 mx-0.5 text-xs text-grey-500">
           {tag}
         </span>
-      ))}{" "}
+      ))}{' '}
       {tags.length > limit && (
         <button
           className="text-sm underline"
@@ -308,7 +331,7 @@ function Tags({ tags }: TagsProps) {
             setShouldShowMore((state) => !state);
           }}
         >
-          See {shouldShowMore ? "less" : "more"}
+          See {shouldShowMore ? 'less' : 'more'}
         </button>
       )}
     </>
