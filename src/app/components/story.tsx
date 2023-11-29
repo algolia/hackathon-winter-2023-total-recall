@@ -189,7 +189,7 @@ const Story = () => {
                       {currentStepIndex > 0 && (
                         <button
                           type="button"
-                          className="inline-flex items-center px-4 py-2 mt-4 mr-4 text-sm font-medium text-white bg-xenon-600 border border-transparent rounded-md shadow-sm hover:bg-xenon-700 focus:outline-none"
+                          className="inline-flex items-center px-4 py-2 mt-4 mr-4 text-sm font-medium text-white bg-grey-300 border border-transparent transition-colors rounded-md shadow-sm hover:bg-grey-400 focus:outline-none"
                           onClick={() => {
                             setCurrentStepIndex(currentStepIndex - 1);
                           }}
@@ -201,7 +201,7 @@ const Story = () => {
                       {currentStepIndex !== currentTab.story.length - 1 && (
                         <button
                           type="button"
-                          className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-xenon-600 border border-transparent rounded-md shadow-sm hover:bg-xenon-700 focus:outline-none"
+                          className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-xenon-600 border border-transparent rounded-md shadow-sm transition-colors hover:bg-xenon-700 focus:outline-none"
                           onClick={() => {
                             setCurrentStepIndex(currentStepIndex + 1);
                           }}
