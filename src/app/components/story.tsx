@@ -6,6 +6,7 @@ import algoliasearch from "algoliasearch/lite";
 import { InstantSearch } from "react-instantsearch";
 import { useState } from "react";
 import { steps } from "../data/steps";
+import Highlight from "react-highlight";
 
 const searchClient = algoliasearch(
   "PVXYD3XMQP",
@@ -24,7 +25,6 @@ const tabs = [
         name: "Add instantSearch",
         content: steps[0],
       },
-
       {
         id: "2",
         name: "Add your SearchBox",
@@ -112,9 +112,9 @@ const Story = () => {
                 </header>
 
                 <div>
-                  <pre>
-                    <code>{currentCodeSample}</code>
-                  </pre>
+                  <Highlight className="javascript">
+                    {currentCodeSample}
+                  </Highlight>
 
                   <footer>
                     <div className="flex justify-end px-4">
