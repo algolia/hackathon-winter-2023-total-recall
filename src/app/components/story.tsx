@@ -317,7 +317,10 @@ function Tags({ tags }: TagsProps) {
   return (
     <>
       {tags.slice(0, shouldShowMore ? Infinity : limit).map((tag) => (
-        <span className="inline-block bg-grey-200 rounded py-1 px-2 mx-0.5 text-xs text-grey-500">
+        <span
+          key={tag}
+          className="inline-block bg-grey-200 rounded py-1 px-2 mx-0.5 text-xs text-grey-500"
+        >
           {tag}
         </span>
       ))}{' '}
