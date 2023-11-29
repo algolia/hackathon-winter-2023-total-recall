@@ -52,15 +52,8 @@ const tabs = [
 const Story = () => {
   const [currentTab, setCurrentTab] = useState(0);
 
-  const handleTabs = (e, clickedTabIndex) => {
-    e.preventDefault();
-
-    setTabs((prevTabs) =>
-      prevTabs.map((tab, index) => {
-        tab.current = index === clickedTabIndex;
-        return tab;
-      })
-    );
+  const handleTabs = (index) => {
+    setCurrentTab(index);
   };
 
   return (
@@ -79,18 +72,29 @@ const Story = () => {
                     key={tab.name}
                     href={tab.href}
                     className={cx(
-                      tab.current
+                      currentTab === index
                         ? "bg-indigo-100 text-indigo-700"
                         : "text-gray-500 hover:text-gray-700",
                       "rounded-md px-3 py-2 text-sm font-medium"
                     )}
-                    aria-current={tab.current ? "page" : undefined}
-                    onClick={(e) => handleTabs(e, index)}
+                    aria-current={currentTab === index ? "page" : undefined}
+                    onClick={() => handleTabs(index)}
                   >
                     {tab.name}
                   </a>
                 ))}
               </nav>
+
+              <div className="px-4 py-6 sm:px-0">
+                <header>
+                  <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                    {tabs[currentTab].title}
+                  </h2>
+                  <p className="mt-1 text-sm text-gray-500">
+                    {tabs[currentTab].description}
+                  </p>
+                </header>
+              </div>
             </div>
           </div>
         </div>
