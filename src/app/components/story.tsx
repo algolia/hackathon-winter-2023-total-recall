@@ -1,28 +1,28 @@
-'use client';
+"use client";
 
-import cx from 'classnames';
-import algoliasearch from 'algoliasearch/lite';
-import { Highlight, Hits, InstantSearch, SearchBox } from 'react-instantsearch';
-import { Hit } from 'instantsearch.js';
-import { useState } from 'react';
-import HighlightCode from 'react-highlight';
-import Image from 'next/image';
+import cx from "classnames";
+import algoliasearch from "algoliasearch/lite";
+import { Highlight, Hits, InstantSearch, SearchBox } from "react-instantsearch";
+import { Hit } from "instantsearch.js";
+import { useState } from "react";
+import HighlightCode from "react-highlight";
+import Image from "next/image";
 
 const searchClient = algoliasearch(
-  'PVXYD3XMQP',
-  '69636a752c16bee55133304edea993f7'
+  "PVXYD3XMQP",
+  "69636a752c16bee55133304edea993f7"
 );
 
 const tabs = [
   {
-    name: 'Complementary reco',
-    href: '#',
-    title: 'Complementary recommendations',
-    description: 'Try to edit the code to see the results',
+    name: "Complementary reco",
+    href: "#",
+    title: "Complementary recommendations",
+    description: "Try to edit the code to see the results",
     story: [
       {
-        id: '1',
-        name: 'Set up InstantSearch',
+        id: "1",
+        name: "Set up InstantSearch",
         app: (
           <div>
             <h1>Search</h1>
@@ -37,8 +37,8 @@ const tabs = [
 }`,
       },
       {
-        id: '2',
-        name: 'Add a search box',
+        id: "2",
+        name: "Add a search box",
         app: (
           <div>
             <h1>Search</h1>
@@ -54,8 +54,8 @@ const tabs = [
 }`,
       },
       {
-        id: '3',
-        name: 'Add hits',
+        id: "3",
+        name: "Add hits",
         app: (
           <div>
             <h1>Search</h1>
@@ -73,8 +73,8 @@ const tabs = [
 }`,
       },
       {
-        id: '4',
-        name: 'Customize hits',
+        id: "4",
+        name: "Customize hits",
         app: (
           <div>
             <h1>Search</h1>
@@ -98,33 +98,33 @@ function Hit({ hit }) {
     ],
   },
   {
-    name: 'Alternative reco',
-    href: '#',
-    title: 'foo bar baz',
-    description: 'bar baz qux',
+    name: "Alternative reco",
+    href: "#",
+    title: "foo bar baz",
+    description: "bar baz qux",
     story: [],
   },
   {
-    name: 'Trending items',
-    href: '#',
-    title: 'foo bar baz',
-    description: 'bar baz qux',
+    name: "Trending items",
+    href: "#",
+    title: "foo bar baz",
+    description: "bar baz qux",
     story: [],
   },
   {
-    name: 'Trending facets value',
-    href: '#',
-    title: 'foo bar baz',
-    description: 'bar baz qux',
+    name: "Trending facets value",
+    href: "#",
+    title: "foo bar baz",
+    description: "bar baz qux",
     story: [],
   },
-  {
-    name: 'Looking similar',
-    href: '#',
-    title: 'foo bar baz',
-    description: 'bar baz qux',
-    story: [],
-  },
+  // {
+  //   name: "Looking similar",
+  //   href: "#",
+  //   title: "foo bar baz",
+  //   description: "bar baz qux",
+  //   story: [],
+  // },
 ];
 
 const Story = () => {
@@ -136,25 +136,25 @@ const Story = () => {
 
   return (
     <InstantSearch searchClient={searchClient} indexName="games">
-      <div className="w-full border border-gray-300 bg-gray-200">
+      <div className="w-full">
         <div className="grid grid-cols-2">
           <div className="p-4 bg-white text-black">{currentStep.app}</div>
 
           <div>
             <div className="hidden sm:block">
-              <nav className="flex space-x-4" aria-label="Tabs">
+              <nav className="flex space-x-4 p-2" aria-label="Tabs">
                 {tabs.map((tab, index) => (
                   <a
                     key={tab.name}
                     href={tab.href}
                     className={cx(
                       currentTabIndex === index
-                        ? 'bg-indigo-100 text-indigo-700'
-                        : 'text-gray-500 hover:text-gray-700',
-                      'rounded-md px-1 py-2 text-sm font-medium'
+                        ? "bg-xenon-100 text-xenon-500"
+                        : "text-grey-600 hover:text-grey-700",
+                      "rounded-full px-2 py-2 text-xs font-medium uppercase"
                     )}
                     aria-current={
-                      currentTabIndex === index ? 'page' : undefined
+                      currentTabIndex === index ? "page" : undefined
                     }
                     onClick={() => setCurrentTabIndex(index)}
                   >
@@ -174,7 +174,7 @@ const Story = () => {
                 </header>
 
                 <div>
-                  <div className="p-4 bg-white">
+                  <div className="p-4 bg-grey-100">
                     <HighlightCode className="javascript">
                       {currentStep.code}
                     </HighlightCode>
@@ -185,7 +185,7 @@ const Story = () => {
                       {currentStepIndex > 0 && (
                         <button
                           type="button"
-                          className="inline-flex items-center px-4 py-2 mt-4 mr-4 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none"
+                          className="inline-flex items-center px-4 py-2 mt-4 mr-4 text-sm font-medium text-white bg-xenon-600 border border-transparent rounded-md shadow-sm hover:bg-xenon-700 focus:outline-none"
                           onClick={() => {
                             setCurrentStepIndex(currentStepIndex - 1);
                           }}
@@ -197,7 +197,7 @@ const Story = () => {
                       {currentStepIndex !== currentTab.story.length - 1 && (
                         <button
                           type="button"
-                          className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none"
+                          className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-xenon-600 border border-transparent rounded-md shadow-sm hover:bg-xenon-700 focus:outline-none"
                           onClick={() => {
                             setCurrentStepIndex(currentStepIndex + 1);
                           }}
@@ -277,7 +277,7 @@ function Tags({ tags }: TagsProps) {
         <span className="inline-block bg-gray-200 rounded py-1 px-2 mx-0.5 text-xs text-gray-500">
           {tag}
         </span>
-      ))}{' '}
+      ))}{" "}
       {tags.length > limit && (
         <button
           className="text-sm underline"
@@ -285,7 +285,7 @@ function Tags({ tags }: TagsProps) {
             setShouldShowMore((state) => !state);
           }}
         >
-          See {shouldShowMore ? 'less' : 'more'}
+          See {shouldShowMore ? "less" : "more"}
         </button>
       )}
     </>
