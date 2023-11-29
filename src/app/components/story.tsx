@@ -112,12 +112,28 @@ const Story = () => {
                 </header>
 
                 <div>
-                  <Highlight className="javascript">
-                    {currentCodeSample}
-                  </Highlight>
+                  <div className="p-4 bg-white">
+                    <Highlight className="javascript">
+                      {currentCodeSample}
+                    </Highlight>
+                  </div>
 
                   <footer>
                     <div className="flex justify-end px-4">
+                      <button
+                        type="button"
+                        className="inline-flex items-center px-4 py-2 mt-4 mr-4 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none"
+                        // onClick go to the next step, and display the next code snippet
+
+                        onClick={() => {
+                          setCurrentCodeSample(
+                            tabs[currentTab].storyObject[0].content
+                          );
+                        }}
+                      >
+                        Previous step
+                      </button>
+
                       <button
                         type="button"
                         className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none"
