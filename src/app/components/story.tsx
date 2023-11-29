@@ -1,84 +1,144 @@
-"use client";
+'use client';
 
-import cx from "classnames";
-import Search from "./search";
-import algoliasearch from "algoliasearch/lite";
-import { InstantSearch } from "react-instantsearch";
-import { useState } from "react";
-import { steps } from "../data/steps";
-import Highlight from "react-highlight";
+import cx from 'classnames';
+import algoliasearch from 'algoliasearch/lite';
+import { Highlight, Hits, InstantSearch, SearchBox } from 'react-instantsearch';
+import { Hit } from 'instantsearch.js';
+import { useState } from 'react';
+import HighlightCode from 'react-highlight';
+import Image from 'next/image';
 
 const searchClient = algoliasearch(
-  "PVXYD3XMQP",
-  "69636a752c16bee55133304edea993f7"
+  'PVXYD3XMQP',
+  '69636a752c16bee55133304edea993f7'
 );
 
 const tabs = [
   {
-    name: "Complementary reco",
-    href: "#",
-    title: "Complementary recommendations",
-    description: "Try to edit the code to see the results",
-    storyObject: [
+    name: 'Complementary reco',
+    href: '#',
+    title: 'Complementary recommendations',
+    description: 'Try to edit the code to see the results',
+    story: [
       {
-        id: "1",
-        name: "Add instantSearch",
-        content: steps[0],
+        id: '1',
+        name: 'Set up InstantSearch',
+        app: (
+          <div>
+            <h1>Search</h1>
+          </div>
+        ),
+        code: `function App() {
+  return (
+    <InstantSearch searchClient={searchClient} indexName="instant_search">
+      {/* ... */}
+    </InstantSearch>
+  );
+}`,
       },
       {
-        id: "2",
-        name: "Add your SearchBox",
-        content: steps[1],
+        id: '2',
+        name: 'Add a search box',
+        app: (
+          <div>
+            <h1>Search</h1>
+            <SearchBox />
+          </div>
+        ),
+        code: `function App() {
+  return (
+    <InstantSearch searchClient={searchClient} indexName="instant_search">
+      <SearchBox />
+    </InstantSearch>
+  );
+}`,
+      },
+      {
+        id: '3',
+        name: 'Add hits',
+        app: (
+          <div>
+            <h1>Search</h1>
+            <SearchBox />
+            <Hits />
+          </div>
+        ),
+        code: `function App() {
+  return (
+    <InstantSearch searchClient={searchClient} indexName="instant_search">
+      <SearchBox />
+      <Hits />
+    </InstantSearch>
+  );
+}`,
+      },
+      {
+        id: '4',
+        name: 'Customize hits',
+        app: (
+          <div>
+            <h1>Search</h1>
+            <SearchBox />
+            <Hits hitComponent={Hit} />
+          </div>
+        ),
+        code: `function App() {
+  return (
+    <InstantSearch searchClient={searchClient} indexName="instant_search">
+      <SearchBox />
+      <Hits hitComponent={Hit} />
+    </InstantSearch>
+  );
+}
+
+function Hit({ hit }) {
+  {/* ... */}
+}`,
       },
     ],
   },
   {
-    name: "Alternative reco",
-    href: "#",
-    title: "foo bar baz",
-    description: "bar baz qux",
-    storyObject: {},
+    name: 'Alternative reco',
+    href: '#',
+    title: 'foo bar baz',
+    description: 'bar baz qux',
+    story: [],
   },
   {
-    name: "Trending items",
-    href: "#",
-    title: "foo bar baz",
-    description: "bar baz qux",
-    storyObject: {},
+    name: 'Trending items',
+    href: '#',
+    title: 'foo bar baz',
+    description: 'bar baz qux',
+    story: [],
   },
   {
-    name: "Trending facets value",
-    href: "#",
-    title: "foo bar baz",
-    description: "bar baz qux",
-    storyObject: {},
+    name: 'Trending facets value',
+    href: '#',
+    title: 'foo bar baz',
+    description: 'bar baz qux',
+    story: [],
   },
   {
-    name: "Looking similar",
-    href: "#",
-    title: "foo bar baz",
-    description: "bar baz qux",
-    storyObject: {},
+    name: 'Looking similar',
+    href: '#',
+    title: 'foo bar baz',
+    description: 'bar baz qux',
+    story: [],
   },
 ];
 
 const Story = () => {
-  const [currentTab, setCurrentTab] = useState(0);
-  const [currentCodeSample, setCurrentCodeSample] = useState(
-    tabs[currentTab].storyObject[0].content
-  );
+  const [currentTabIndex, setCurrentTabIndex] = useState(0);
+  const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
-  const handleTabs = (index) => {
-    setCurrentTab(index);
-  };
+  const currentTab = tabs[currentTabIndex];
+  const currentStep = currentTab.story[currentStepIndex];
 
   return (
     <InstantSearch searchClient={searchClient} indexName="games">
       <div className="w-full border border-gray-300 bg-gray-200">
         <div className="grid grid-cols-2">
-          <div className="p-4 bg-white">
-            <Search />
-          </div>
+          <div className="p-4 bg-white text-black">{currentStep.app}</div>
 
           <div>
             <div className="hidden sm:block">
@@ -88,13 +148,15 @@ const Story = () => {
                     key={tab.name}
                     href={tab.href}
                     className={cx(
-                      currentTab === index
-                        ? "bg-indigo-100 text-indigo-700"
-                        : "text-gray-500 hover:text-gray-700",
-                      "rounded-md px-1 py-2 text-sm font-medium"
+                      currentTabIndex === index
+                        ? 'bg-indigo-100 text-indigo-700'
+                        : 'text-gray-500 hover:text-gray-700',
+                      'rounded-md px-1 py-2 text-sm font-medium'
                     )}
-                    aria-current={currentTab === index ? "page" : undefined}
-                    onClick={() => handleTabs(index)}
+                    aria-current={
+                      currentTabIndex === index ? 'page' : undefined
+                    }
+                    onClick={() => setCurrentTabIndex(index)}
                   >
                     {tab.name}
                   </a>
@@ -104,49 +166,45 @@ const Story = () => {
               <div className="px-4 py-6 sm:px-0">
                 <header className="p-4">
                   <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-                    {tabs[currentTab].title}
+                    {currentTab.title}
                   </h2>
                   <p className="mt-1 text-sm text-gray-500">
-                    {tabs[currentTab].description}
+                    {currentTab.description}
                   </p>
                 </header>
 
                 <div>
                   <div className="p-4 bg-white">
-                    <Highlight className="javascript">
-                      {currentCodeSample}
-                    </Highlight>
+                    <HighlightCode className="javascript">
+                      {currentStep.code}
+                    </HighlightCode>
                   </div>
 
                   <footer>
                     <div className="flex justify-end px-4">
-                      <button
-                        type="button"
-                        className="inline-flex items-center px-4 py-2 mt-4 mr-4 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none"
-                        // onClick go to the next step, and display the next code snippet
+                      {currentStepIndex > 0 && (
+                        <button
+                          type="button"
+                          className="inline-flex items-center px-4 py-2 mt-4 mr-4 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none"
+                          onClick={() => {
+                            setCurrentStepIndex(currentStepIndex - 1);
+                          }}
+                        >
+                          Previous step
+                        </button>
+                      )}
 
-                        onClick={() => {
-                          setCurrentCodeSample(
-                            tabs[currentTab].storyObject[0].content
-                          );
-                        }}
-                      >
-                        Previous step
-                      </button>
-
-                      <button
-                        type="button"
-                        className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none"
-                        // onClick go to the next step, and display the next code snippet
-
-                        onClick={() => {
-                          setCurrentCodeSample(
-                            tabs[currentTab].storyObject[1].content
-                          );
-                        }}
-                      >
-                        Add your searchbox
-                      </button>
+                      {currentStepIndex !== currentTab.story.length - 1 && (
+                        <button
+                          type="button"
+                          className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none"
+                          onClick={() => {
+                            setCurrentStepIndex(currentStepIndex + 1);
+                          }}
+                        >
+                          {currentTab.story[currentStepIndex + 1].name}
+                        </button>
+                      )}
                     </div>
                   </footer>
                 </div>
@@ -158,5 +216,80 @@ const Story = () => {
     </InstantSearch>
   );
 };
+
+type HitProps = {
+  hit: Hit<{
+    header_image: string;
+    name: string;
+    short_description: string;
+    tags: string[];
+    screenshots: string[];
+  }>;
+};
+
+function Hit({ hit }: HitProps) {
+  return (
+    <div className="grid grid-cols-3 my-4 gap-3">
+      <Image
+        src={hit.header_image}
+        width={460}
+        height={215}
+        alt={hit.name}
+        className="aspect-video w-full"
+      />
+      <div className="col-span-2">
+        <h2 className="text-xl font-bold">
+          <Highlight hit={hit} attribute="name" />
+        </h2>
+        <p>{hit.short_description}</p>
+        <Tags tags={hit.tags} />
+        {hit.screenshots.length && (
+          <ul className="grid grid-cols-4 -mx-1">
+            {hit.screenshots.slice(0, 4).map((screenshot) => (
+              <li key={screenshot} className="block mx-1">
+                <Image
+                  src={screenshot}
+                  width={479}
+                  height={262}
+                  alt={screenshot}
+                  className="aspect-ratio"
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+}
+
+type TagsProps = {
+  tags: string[];
+};
+
+function Tags({ tags }: TagsProps) {
+  const [shouldShowMore, setShouldShowMore] = useState(false);
+  const limit = 5;
+
+  return (
+    <>
+      {tags.slice(0, shouldShowMore ? Infinity : limit).map((tag) => (
+        <span className="inline-block bg-gray-200 rounded py-1 px-2 mx-0.5 text-xs text-gray-500">
+          {tag}
+        </span>
+      ))}{' '}
+      {tags.length > limit && (
+        <button
+          className="text-sm underline"
+          onClick={() => {
+            setShouldShowMore((state) => !state);
+          }}
+        >
+          See {shouldShowMore ? 'less' : 'more'}
+        </button>
+      )}
+    </>
+  );
+}
 
 export default Story;
