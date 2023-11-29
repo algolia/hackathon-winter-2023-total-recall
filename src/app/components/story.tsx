@@ -147,10 +147,8 @@ function Hit({ hit }) {
 
 const Story = () => {
   const searchParams = useSearchParams();
-  // const [currentTabIndex, setCurrentTabIndex] = useState(0);
   const currentTabIndex = Number(searchParams.get('tab'));
   const currentStepIndex = Number(searchParams.get('step'));
-  // const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   const currentTab = tabs[currentTabIndex];
   const currentStep = currentTab.story[currentStepIndex];
