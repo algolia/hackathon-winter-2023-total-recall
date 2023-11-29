@@ -1,28 +1,31 @@
-'use client';
+"use client";
 
-import cx from 'classnames';
-import algoliasearch from 'algoliasearch/lite';
-import { Highlight, Hits, InstantSearch, SearchBox } from 'react-instantsearch';
-import { Hit } from 'instantsearch.js';
-import { useState } from 'react';
-import HighlightCode from 'react-highlight';
-import Image from 'next/image';
+import cx from "classnames";
+import algoliasearch from "algoliasearch/lite";
+import { Highlight, Hits, InstantSearch, SearchBox } from "react-instantsearch";
+import { Hit } from "instantsearch.js";
+import { useState } from "react";
+import HighlightCode from "react-highlight";
+import Image from "next/image";
 
 const searchClient = algoliasearch(
-  'PVXYD3XMQP',
-  '69636a752c16bee55133304edea993f7'
+  "PVXYD3XMQP",
+  "69636a752c16bee55133304edea993f7"
 );
 
 const tabs = [
   {
-    name: 'Complementary reco',
-    href: '#',
-    title: 'Complementary recommendations',
-    description: 'Try to edit the code to see the results',
+    name: "Complementary reco",
+    href: "#",
+    title: "Complementary recommendations",
+    description:
+      "In this demo, we'll show you how to build a search page. And then add your own recommendations.",
     story: [
       {
-        id: '1',
-        name: 'Set up InstantSearch',
+        id: "1",
+        name: "Set up InstantSearch",
+        description:
+          "Install the <code>react-instantsearch</code> package. And create your DOM structure.",
         app: (
           <div>
             <h1>Search</h1>
@@ -37,8 +40,10 @@ const tabs = [
 }`,
       },
       {
-        id: '2',
-        name: 'Add a search box',
+        id: "2",
+        name: "Add a search box",
+        description:
+          "Add a search box to your page. It will let your users search for products.",
         app: (
           <div>
             <h1>Search</h1>
@@ -54,8 +59,10 @@ const tabs = [
 }`,
       },
       {
-        id: '3',
-        name: 'Add hits',
+        id: "3",
+        name: "Add hits",
+        description:
+          "Add a hits widget to your page. It will display the results of your search.",
         app: (
           <div>
             <h1>Search</h1>
@@ -73,8 +80,10 @@ const tabs = [
 }`,
       },
       {
-        id: '4',
-        name: 'Customize hits',
+        id: "4",
+        name: "Customize hits",
+        description:
+          "Customize the rendering of your hits. You can use the <code>hitComponent</code> prop.",
         app: (
           <div>
             <h1>Search</h1>
@@ -98,33 +107,33 @@ function Hit({ hit }) {
     ],
   },
   {
-    name: 'Alternative reco',
-    href: '#',
-    title: 'foo bar baz',
-    description: 'bar baz qux',
+    name: "Alternative reco",
+    href: "#",
+    title: "foo bar baz",
+    description: "bar baz qux",
     story: [],
   },
   {
-    name: 'Trending items',
-    href: '#',
-    title: 'foo bar baz',
-    description: 'bar baz qux',
+    name: "Trending items",
+    href: "#",
+    title: "foo bar baz",
+    description: "bar baz qux",
     story: [],
   },
   {
-    name: 'Trending facets value',
-    href: '#',
-    title: 'foo bar baz',
-    description: 'bar baz qux',
+    name: "Trending facets value",
+    href: "#",
+    title: "foo bar baz",
+    description: "bar baz qux",
     story: [],
   },
-  // {
-  //   name: "Looking similar",
-  //   href: "#",
-  //   title: "foo bar baz",
-  //   description: "bar baz qux",
-  //   story: [],
-  // },
+  {
+    name: "Looking similar",
+    href: "#",
+    title: "foo bar baz",
+    description: "bar baz qux",
+    story: [],
+  },
 ];
 
 const Story = () => {
@@ -146,19 +155,19 @@ const Story = () => {
 
           <div>
             <div className="hidden sm:block">
-              <nav className="flex flex-wrap space-x-4 p-2" aria-label="Tabs">
+              <nav className="flex flex-wrap space-x-2 p-2" aria-label="Tabs">
                 {tabs.map((tab, index) => (
                   <a
                     key={tab.name}
                     href={tab.href}
                     className={cx(
                       currentTabIndex === index
-                        ? 'bg-xenon-100 text-xenon-500'
-                        : 'text-grey-600 hover:text-grey-700',
-                      'rounded-full px-3 py-2 text-xs font-medium uppercase'
+                        ? "bg-xenon-100 text-xenon-500"
+                        : "text-grey-600 hover:text-grey-700",
+                      "rounded-full px-3 py-2 text-xs font-medium uppercase"
                     )}
                     aria-current={
-                      currentTabIndex === index ? 'page' : undefined
+                      currentTabIndex === index ? "page" : undefined
                     }
                     onClick={() => setCurrentTabIndex(index)}
                   >
@@ -167,7 +176,7 @@ const Story = () => {
                 ))}
               </nav>
 
-              <div className="px-4 py-6 sm:px-0">
+              <div className="px-4 pt-6 sm:px-0">
                 <header className="p-4">
                   <h2 className="text-2xl font-bold leading-7 text-grey-900 sm:text-3xl sm:truncate">
                     {currentTab.title}
@@ -178,7 +187,17 @@ const Story = () => {
                 </header>
 
                 <div>
-                  <div className="p-8 rounded-lg bg-grey-100 text-sm overflow-scroll leading-loose">
+                  <div className="flex flex-col items-start justify-between px-4">
+                    <h3 className="text-lg font-bold leading-6 text-grey-900">
+                      <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-grey-100 text-grey-800">
+                        {currentStep.id}
+                      </span>{" "}
+                      {currentStep.name}
+                    </h3>
+
+                    <p>{currentStep.description}</p>
+                  </div>
+                  <div className="p-8 rounded-lg bg-grey-100 text-sm overflow-scroll leading-loose shadow-lg">
                     <HighlightCode className="javascript">
                       {currentStep.code}
                     </HighlightCode>
@@ -281,7 +300,7 @@ function Tags({ tags }: TagsProps) {
         <span className="inline-block bg-grey-200 rounded py-1 px-2 mx-0.5 text-xs text-grey-500">
           {tag}
         </span>
-      ))}{' '}
+      ))}{" "}
       {tags.length > limit && (
         <button
           className="text-sm underline"
@@ -289,7 +308,7 @@ function Tags({ tags }: TagsProps) {
             setShouldShowMore((state) => !state);
           }}
         >
-          See {shouldShowMore ? 'less' : 'more'}
+          See {shouldShowMore ? "less" : "more"}
         </button>
       )}
     </>
