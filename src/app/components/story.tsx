@@ -112,8 +112,7 @@ const tabs = [
             <p>
               <Snippet hit={hit} attribute="description" />
             </p>
-            <Tags tags={hit.categories} />
-            <Carousel urls={hit.screenshots} />
+            {/* … */}
           </>
         )}
       />
