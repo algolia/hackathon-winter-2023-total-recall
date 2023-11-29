@@ -38,7 +38,6 @@ const tabs = [
       "In this demo, we'll show you how to build a search page. And then add your own recommendations.",
     story: [
       {
-        id: '1',
         name: 'Set up InstantSearch',
         description:
           'Install the <code>react-instantsearch</code> package. And create your DOM structure.',
@@ -52,7 +51,6 @@ const tabs = [
 }`,
       },
       {
-        id: '2',
         name: 'Add a search box',
         description:
           'Add a search box to your page. It will let your users search for products.',
@@ -70,7 +68,6 @@ const tabs = [
 }`,
       },
       {
-        id: '3',
         name: 'Add hits',
         description:
           'Add a hits widget to your page. It will display the results of your search.',
@@ -93,7 +90,6 @@ const tabs = [
 }`,
       },
       {
-        id: '4',
         name: 'Customize hits',
         description:
           'Customize the rendering of your hits. You can use the <code>hitComponent</code> prop.',
@@ -205,8 +201,8 @@ const Story = () => {
                 <div>
                   <div className="flex flex-col items-start justify-between px-4">
                     <h3 className="text-lg font-bold leading-6 text-grey-900">
-                      <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-grey-100 text-grey-800">
-                        {currentStep.id}
+                      <span className="-top-0.5 relative px-3 py-0.5 rounded-full text-sm font-medium bg-grey-100 text-grey-600">
+                        {currentStepIndex + 1}/{currentTab.story.length}
                       </span>{' '}
                       {currentStep.name}
                     </h3>
