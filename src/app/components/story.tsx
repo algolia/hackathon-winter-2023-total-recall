@@ -33,10 +33,10 @@ function RawHit({ hit }: HitProps) {
 
 const tabs = [
   {
-    name: 'Complementary reco',
+    name: 'Complementary recommendations',
     title: 'Complementary recommendations',
     description:
-      "In this demo, we'll show you how to build a search page. And then add your own recommendations.",
+      'Drive cross sells by showing products that complement the current selection.',
     story: [
       {
         name: 'Set up InstantSearch',
@@ -53,8 +53,7 @@ const tabs = [
       },
       {
         name: 'Add a search box',
-        description:
-          'Add a search box to your page. It will let your users search for products.',
+        description: 'Add a search box to let your users search for products.',
         app: (
           <div>
             <SearchBox />
@@ -70,8 +69,7 @@ const tabs = [
       },
       {
         name: 'Add hits',
-        description:
-          'Add a hits widget to your page. It will display the results of your search.',
+        description: 'Add hits display the results of your search.',
         app: (
           <div>
             <SearchBox />
@@ -93,7 +91,7 @@ const tabs = [
       {
         name: 'Customize hits',
         description:
-          'Customize the rendering of your hits. You can use the <code>hitComponent</code> prop.',
+          'Customize the rendering of your hits with the <code>hitComponent</code> prop.',
         app: (
           <div>
             <SearchBox />
@@ -116,31 +114,29 @@ function Hit({ hit }) {
     ],
   },
   {
-    name: 'Alternative reco',
-    href: '#',
-    title: 'foo bar baz',
-    description: 'bar baz qux',
+    name: 'Alternative recommendations',
+    title: 'Complementary recommendations',
+    description:
+      'Maximize conversions, catalog exposure and time spent on site by showcasing alternative products or similar content.',
     story: [],
   },
   {
     name: 'Trending items',
-    href: '#',
-    title: 'foo bar baz',
-    description: 'bar baz qux',
+    title: 'Trending items',
+    description:
+      'Inspire visitors by showing them specific items throughout the full product catalog and per specific facet value.',
     story: [],
   },
   {
-    name: 'Trending facets value',
-    href: '#',
-    title: 'foo bar baz',
-    description: 'bar baz qux',
+    name: 'Trending facets',
+    title: 'Trending facets',
+    description: 'Show trending categories like FPS, Adventure or RPG.',
     story: [],
   },
   {
     name: 'Looking similar',
-    href: '#',
-    title: 'foo bar baz',
-    description: 'bar baz qux',
+    title: 'Looking similar',
+    description: 'Find visual similarities to increase catalog discovery.',
     story: [],
   },
 ];
