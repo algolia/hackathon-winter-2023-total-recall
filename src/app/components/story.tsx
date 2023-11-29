@@ -1,28 +1,28 @@
-"use client";
+'use client';
 
-import cx from "classnames";
-import algoliasearch from "algoliasearch/lite";
-import { Highlight, Hits, InstantSearch, SearchBox } from "react-instantsearch";
-import { Hit } from "instantsearch.js";
-import { useState } from "react";
-import HighlightCode from "react-highlight";
-import Image from "next/image";
+import cx from 'classnames';
+import algoliasearch from 'algoliasearch/lite';
+import { Highlight, Hits, InstantSearch, SearchBox } from 'react-instantsearch';
+import { Hit } from 'instantsearch.js';
+import { useState } from 'react';
+import HighlightCode from 'react-highlight';
+import Image from 'next/image';
 
 const searchClient = algoliasearch(
-  "PVXYD3XMQP",
-  "69636a752c16bee55133304edea993f7"
+  'PVXYD3XMQP',
+  '69636a752c16bee55133304edea993f7'
 );
 
 const tabs = [
   {
-    name: "Complementary reco",
-    href: "#",
-    title: "Complementary recommendations",
-    description: "Try to edit the code to see the results",
+    name: 'Complementary reco',
+    href: '#',
+    title: 'Complementary recommendations',
+    description: 'Try to edit the code to see the results',
     story: [
       {
-        id: "1",
-        name: "Set up InstantSearch",
+        id: '1',
+        name: 'Set up InstantSearch',
         app: (
           <div>
             <h1>Search</h1>
@@ -37,8 +37,8 @@ const tabs = [
 }`,
       },
       {
-        id: "2",
-        name: "Add a search box",
+        id: '2',
+        name: 'Add a search box',
         app: (
           <div>
             <h1>Search</h1>
@@ -54,8 +54,8 @@ const tabs = [
 }`,
       },
       {
-        id: "3",
-        name: "Add hits",
+        id: '3',
+        name: 'Add hits',
         app: (
           <div>
             <h1>Search</h1>
@@ -73,8 +73,8 @@ const tabs = [
 }`,
       },
       {
-        id: "4",
-        name: "Customize hits",
+        id: '4',
+        name: 'Customize hits',
         app: (
           <div>
             <h1>Search</h1>
@@ -98,24 +98,24 @@ function Hit({ hit }) {
     ],
   },
   {
-    name: "Alternative reco",
-    href: "#",
-    title: "foo bar baz",
-    description: "bar baz qux",
+    name: 'Alternative reco',
+    href: '#',
+    title: 'foo bar baz',
+    description: 'bar baz qux',
     story: [],
   },
   {
-    name: "Trending items",
-    href: "#",
-    title: "foo bar baz",
-    description: "bar baz qux",
+    name: 'Trending items',
+    href: '#',
+    title: 'foo bar baz',
+    description: 'bar baz qux',
     story: [],
   },
   {
-    name: "Trending facets value",
-    href: "#",
-    title: "foo bar baz",
-    description: "bar baz qux",
+    name: 'Trending facets value',
+    href: '#',
+    title: 'foo bar baz',
+    description: 'bar baz qux',
     story: [],
   },
   // {
@@ -137,24 +137,28 @@ const Story = () => {
   return (
     <InstantSearch searchClient={searchClient} indexName="games">
       <div className="w-full">
-        <div className="grid grid-cols-2">
-          <div className="p-4 bg-white text-black">{currentStep.app}</div>
+        <div className="grid grid-cols-2 gap-6">
+          <div className="bg-grey-100 shadow-lg rounded-xl text-black">
+            <div className="p-4 shadow-lg w-full h-full rounded-lg">
+              {currentStep.app}
+            </div>
+          </div>
 
           <div>
             <div className="hidden sm:block">
-              <nav className="flex space-x-4 p-2" aria-label="Tabs">
+              <nav className="flex flex-wrap space-x-4 p-2" aria-label="Tabs">
                 {tabs.map((tab, index) => (
                   <a
                     key={tab.name}
                     href={tab.href}
                     className={cx(
                       currentTabIndex === index
-                        ? "bg-xenon-100 text-xenon-500"
-                        : "text-grey-600 hover:text-grey-700",
-                      "rounded-full px-2 py-2 text-xs font-medium uppercase"
+                        ? 'bg-xenon-100 text-xenon-500'
+                        : 'text-grey-600 hover:text-grey-700',
+                      'rounded-full px-3 py-2 text-xs font-medium uppercase'
                     )}
                     aria-current={
-                      currentTabIndex === index ? "page" : undefined
+                      currentTabIndex === index ? 'page' : undefined
                     }
                     onClick={() => setCurrentTabIndex(index)}
                   >
@@ -165,16 +169,16 @@ const Story = () => {
 
               <div className="px-4 py-6 sm:px-0">
                 <header className="p-4">
-                  <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                  <h2 className="text-2xl font-bold leading-7 text-grey-900 sm:text-3xl sm:truncate">
                     {currentTab.title}
                   </h2>
-                  <p className="mt-1 text-sm text-gray-500">
+                  <p className="mt-1 text-sm text-grey-500">
                     {currentTab.description}
                   </p>
                 </header>
 
                 <div>
-                  <div className="p-4 bg-grey-100">
+                  <div className="p-8 rounded-lg bg-grey-100 text-sm overflow-scroll leading-loose">
                     <HighlightCode className="javascript">
                       {currentStep.code}
                     </HighlightCode>
@@ -274,10 +278,10 @@ function Tags({ tags }: TagsProps) {
   return (
     <>
       {tags.slice(0, shouldShowMore ? Infinity : limit).map((tag) => (
-        <span className="inline-block bg-gray-200 rounded py-1 px-2 mx-0.5 text-xs text-gray-500">
+        <span className="inline-block bg-grey-200 rounded py-1 px-2 mx-0.5 text-xs text-grey-500">
           {tag}
         </span>
-      ))}{" "}
+      ))}{' '}
       {tags.length > limit && (
         <button
           className="text-sm underline"
@@ -285,7 +289,7 @@ function Tags({ tags }: TagsProps) {
             setShouldShowMore((state) => !state);
           }}
         >
-          See {shouldShowMore ? "less" : "more"}
+          See {shouldShowMore ? 'less' : 'more'}
         </button>
       )}
     </>
