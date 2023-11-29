@@ -15,6 +15,8 @@ import HighlightCode from 'react-highlight';
 import Image from 'next/image';
 
 import { SearchBox } from './demo/SearchBox';
+import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 
 const searchClient = algoliasearch(
   'PVXYD3XMQP',
@@ -32,7 +34,6 @@ function RawHit({ hit }: HitProps) {
 const tabs = [
   {
     name: 'Complementary reco',
-    href: '#',
     title: 'Complementary recommendations',
     description:
       "In this demo, we'll show you how to build a search page. And then add your own recommendations.",
@@ -145,8 +146,11 @@ function Hit({ hit }) {
 ];
 
 const Story = () => {
-  const [currentTabIndex, setCurrentTabIndex] = useState(0);
-  const [currentStepIndex, setCurrentStepIndex] = useState(0);
+  const searchParams = useSearchParams();
+  // const [currentTabIndex, setCurrentTabIndex] = useState(0);
+  const currentTabIndex = Number(searchParams.get('tab'));
+  const currentStepIndex = Number(searchParams.get('step'));
+  // const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
   const currentTab = tabs[currentTabIndex];
   const currentStep = currentTab.story[currentStepIndex];
@@ -169,9 +173,9 @@ const Story = () => {
             <div className="hidden sm:block">
               <nav className="flex flex-wrap space-x-2 p-2" aria-label="Tabs">
                 {tabs.map((tab, index) => (
-                  <a
+                  <Link
                     key={tab.name}
-                    href={tab.href}
+                    href={`?tab=${index}`}
                     className={cx(
                       currentTabIndex === index
                         ? 'bg-xenon-100 text-xenon-500'
@@ -181,10 +185,9 @@ const Story = () => {
                     aria-current={
                       currentTabIndex === index ? 'page' : undefined
                     }
-                    onClick={() => setCurrentTabIndex(index)}
                   >
                     {tab.name}
-                  </a>
+                  </Link>
                 ))}
               </nav>
 
@@ -218,27 +221,25 @@ const Story = () => {
                   <footer>
                     <div className="flex justify-end px-4">
                       {currentStepIndex > 0 && (
-                        <button
-                          type="button"
+                        <Link
                           className="inline-flex items-center px-4 py-2 mt-4 mr-4 text-sm font-medium text-white bg-grey-300 border border-transparent transition-colors rounded-md shadow-sm hover:bg-grey-400 focus:outline-none"
-                          onClick={() => {
-                            setCurrentStepIndex(currentStepIndex - 1);
-                          }}
+                          href={`?tab=${currentTabIndex}&step=${
+                            currentStepIndex - 1
+                          }`}
                         >
                           Previous step
-                        </button>
+                        </Link>
                       )}
 
                       {currentStepIndex !== currentTab.story.length - 1 && (
-                        <button
-                          type="button"
+                        <Link
                           className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-xenon-600 border border-transparent rounded-md shadow-sm transition-colors hover:bg-xenon-700 focus:outline-none"
-                          onClick={() => {
-                            setCurrentStepIndex(currentStepIndex + 1);
-                          }}
+                          href={`?tab=${currentTabIndex}&step=${
+                            currentStepIndex + 1
+                          }`}
                         >
                           {currentTab.story[currentStepIndex + 1].name}
-                        </button>
+                        </Link>
                       )}
                     </div>
                   </footer>
