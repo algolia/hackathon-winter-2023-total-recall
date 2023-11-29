@@ -177,7 +177,7 @@ const Story = () => {
               </nav>
 
               <div className="px-4 pt-6 sm:px-0">
-                <header className="p-4">
+                <header className="py-4">
                   <h2 className="text-2xl font-bold leading-7 text-grey-900 sm:text-3xl sm:truncate">
                     {currentTab.title}
                   </h2>
@@ -187,10 +187,10 @@ const Story = () => {
                 </header>
 
                 <div>
-                  <div className="flex flex-col items-start justify-between px-4">
+                  <div className="flex flex-col items-start justify-between py-4">
                     <h3 className="text-lg font-bold leading-6 text-grey-900">
                       <span className="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-grey-100 text-grey-800">
-                        {currentStep.id}
+                        {currentStep.id}/{currentTab.story.length}
                       </span>{" "}
                       {currentStep.name}
                     </h3>
@@ -204,7 +204,7 @@ const Story = () => {
                   </div>
 
                   <footer>
-                    <div className="flex justify-end px-4">
+                    <div className="flex justify-between">
                       {currentStepIndex > 0 && (
                         <button
                           type="button"
