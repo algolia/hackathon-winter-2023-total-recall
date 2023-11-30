@@ -34,7 +34,16 @@ const tabs = [
         name: 'Set up InstantSearch',
         description:
           'Install the <code>react-instantsearch</code> package. And create your DOM structure.',
-        app: <div></div>,
+        app: (
+          <div className="flex flex-col gap-4">
+            <div className="w-full h-16 border-grey-200 border-4 border-dashed rounded-lg" />
+            <div className="grid grid-cols-3 gap-2">
+              {Array.from({ length: 9 }).map(() => (
+                <div className="aspect-square border-grey-200 border-4 border-dashed rounded-lg"></div>
+              ))}
+            </div>
+          </div>
+        ),
         code: `function App() {
   return (
     <InstantSearch searchClient={searchClient} indexName="instant_search">
@@ -47,8 +56,13 @@ const tabs = [
         name: 'Add a search box',
         description: 'Add a search box to let your users search for products.',
         app: (
-          <div>
+          <div className="flex flex-col gap-4">
             <SearchBox />
+            <div className="grid grid-cols-3 gap-2">
+              {Array.from({ length: 9 }).map(() => (
+                <div className="aspect-square border-grey-200 border-4 border-dashed rounded-lg"></div>
+              ))}
+            </div>
           </div>
         ),
         code: `function App() {
