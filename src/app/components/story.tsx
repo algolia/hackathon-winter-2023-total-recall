@@ -14,7 +14,7 @@ import { useState } from 'react';
 import HighlightCode from 'react-highlight';
 import Image from 'next/image';
 
-import { SearchBox } from './demo';
+import { RelatedProducts, SearchBox } from './demo';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
@@ -109,6 +109,70 @@ const tabs = [
               <Snippet hit={hit} attribute="description" />
             </p>
             {/* … */}
+          </>
+        )}
+      />
+    </InstantSearch>
+  );
+}`,
+      },
+      {
+        name: 'Display complementary recommendations',
+        description: 'Add recommended titles for each search result.',
+        app: (
+          <div>
+            <SearchBox />
+            <Hits
+              classNames={{ list: 'space-y-8' }}
+              hitComponent={({ hit }: HitProps) => (
+                <Hit hit={hit}>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-2">
+                      Recommendations
+                    </h3>
+                    <RelatedProducts
+                      indexName="games"
+                      objectIDs={[hit.objectID]}
+                      maxRecommendations={3}
+                      itemComponent={({ item }: { item: HitProps['hit'] }) => (
+                        <>
+                          <Image
+                            src={item.header_image}
+                            width={460}
+                            height={215}
+                            alt={hit.name}
+                            className="aspect-video w-full rounded mb-1"
+                          />
+                          <h3 className="font-semibold">{item.name}</h3>
+                        </>
+                      )}
+                    />
+                  </div>
+                </Hit>
+              )}
+            />
+          </div>
+        ),
+        code: `function App() {
+  return (
+    <InstantSearch searchClient={searchClient} indexName="instant_search">
+      <SearchBox />
+      <Hits
+        hitComponent={({ hit }) => (
+          <>
+            <img src={hit.image} alt={hit.name} />
+            <h2>
+              <Highlight hit={hit} attribute="name" />
+            </h2>
+            <p>
+              <Snippet hit={hit} attribute="description" />
+            </p>
+            {/* … */}
+            <RelatedProducts
+              indexName="games"
+              objectIDs={[hit.objectID]}
+              maxRecommendations={3}
+            />
           </>
         )}
       />
@@ -258,7 +322,7 @@ const Story = () => {
   );
 };
 
-type HitProps = {
+type HitProps = React.PropsWithChildren<{
   hit: BaseHit<{
     header_image: string;
     name: string;
@@ -267,9 +331,9 @@ type HitProps = {
     genres: string[];
     screenshots: string[];
   }>;
-};
+}>;
 
-function Hit({ hit }: HitProps) {
+function Hit({ hit, children }: HitProps) {
   return (
     <div className="space-y-4">
       <div className="grid grid-cols-3 gap-3">
@@ -291,21 +355,25 @@ function Hit({ hit }: HitProps) {
       </div>
       <div className="space-y-4">
         <Tags tags={hit.tags} />
-        {hit.screenshots.length && (
-          <ul className="grid grid-cols-5 -mx-1">
-            {hit.screenshots.slice(0, 5).map((screenshot) => (
-              <li key={screenshot} className="block mx-1">
-                <Image
-                  src={screenshot}
-                  width={479}
-                  height={262}
-                  alt={screenshot}
-                  className="aspect-ratio"
-                />
-              </li>
-            ))}
-          </ul>
-        )}
+        <div>
+          <h3 className="font-semibold text-lg mb-2">Screenshots</h3>
+          {hit.screenshots.length && (
+            <ul className="grid grid-cols-5 -mx-1">
+              {hit.screenshots.slice(0, 5).map((screenshot) => (
+                <li key={screenshot} className="block mx-1">
+                  <Image
+                    src={screenshot}
+                    width={479}
+                    height={262}
+                    alt={screenshot}
+                    className="aspect-ratio"
+                  />
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        {children}
       </div>
     </div>
   );
