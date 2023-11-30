@@ -20,10 +20,26 @@ body {
   color: rgb(var(--foreground-rgb));
 }
 
-input[type='search']::-webkit-search-cancel-button {
+input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
 }
 
 .text-pretty {
   text-wrap: pretty;
+}
+
+/* Animation when components are added to the experience */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.appear {
+  animation-name: fadeIn;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
 }

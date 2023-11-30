@@ -48,7 +48,9 @@ const tabs = [
         description: "Add a search box to let your users search for products.",
         app: (
           <div>
-            <SearchBox />
+            <span className="appear">
+              <SearchBox />
+            </span>
           </div>
         ),
         code: `function App() {
@@ -65,14 +67,16 @@ const tabs = [
         app: (
           <div>
             <SearchBox />
-            <Hits
-              classNames={{ list: "grid grid-cols-3 gap-2" }}
-              hitComponent={({ hit }) => (
-                <pre className="bg-gray-200 overflow-scroll text-sm aspect-square text-grey-600 p-4 rounded-lg">
-                  {JSON.stringify(hit, null, 2)}
-                </pre>
-              )}
-            />
+            <span className="appear">
+              <Hits
+                classNames={{ list: "grid grid-cols-3 gap-2" }}
+                hitComponent={({ hit }) => (
+                  <pre className="bg-gray-200 overflow-scroll text-sm aspect-square text-grey-600 p-4 rounded-lg">
+                    {JSON.stringify(hit, null, 2)}
+                  </pre>
+                )}
+              />
+            </span>
           </div>
         ),
         code: `function App() {
@@ -91,7 +95,9 @@ const tabs = [
         app: (
           <div>
             <SearchBox />
-            <Hits classNames={{ list: "space-y-8" }} hitComponent={Hit} />
+            <span className="appear">
+              <Hits classNames={{ list: "space-y-8" }} hitComponent={Hit} />
+            </span>
           </div>
         ),
         code: `function App() {
@@ -126,7 +132,7 @@ const tabs = [
               classNames={{ list: "space-y-8" }}
               hitComponent={({ hit }: HitProps) => (
                 <Hit hit={hit}>
-                  <div>
+                  <div className="appear">
                     <h3 className="font-semibold text-lg mb-2">
                       Recommendations
                     </h3>
@@ -340,21 +346,21 @@ type HitProps = React.PropsWithChildren<{
 
 function Hit({ hit, children }: HitProps) {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 border-b pb-4 border-gray-200">
       <div className="grid grid-cols-3 gap-3">
         <Image
           src={hit.header_image}
           width={460}
           height={215}
           alt={hit.name}
-          className="aspect-video w-full rounded bg-slate-300"
+          className="aspect-video w-full rounded bg-slate-300 shadow"
           loading="lazy"
         />
         <div className="col-span-2">
           <h2 className="text-xl font-bold">
             <Highlight hit={hit} attribute="name" />
           </h2>
-          <p>
+          <p className="text-sm text-gray-500">
             <Snippet hit={hit} attribute="short_description" />
           </p>
         </div>
@@ -372,7 +378,7 @@ function Hit({ hit, children }: HitProps) {
                     width={479}
                     height={262}
                     alt={screenshot}
-                    className="aspect-ratio bg-slate-300"
+                    className="aspect-ratio bg-slate-300 rounded shadow"
                     loading="lazy"
                   />
                 </li>
