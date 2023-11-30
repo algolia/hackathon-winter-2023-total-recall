@@ -30,9 +30,12 @@ export default function Home() {
     <main className="min-h-screen p-24">
       {!searchParams.get("tab") && !searchParams.get("step") && !isClicked && (
         <header className="text-center mb-24">
-          <h1 className="text-4xl font-normal leading-9">
-            Hello, this is the best demo you'll see today guys
+          <h1 className="text-4xl font-normal">
+            Welcome to the Hackathon demo of #TeamTotalRecall
           </h1>
+          <h2 className="text-lg font-normal mt-2">
+            Clementine Caroubi • Raed Chammam • Lucas Bonomi • Sarah Dayan
+          </h2>
         </header>
       )}
 
