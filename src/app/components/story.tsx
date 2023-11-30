@@ -311,17 +311,19 @@ const Story = () => {
                       }}
                     ></p>
                   </div>
-                  <div className="p-8 rounded-lg bg-grey-100 text-sm overflow-scroll leading-loose shadow-lg dark:bg-slate-800 dark:text-gray-200">
-                    <HighlightCode className="javascript">
-                      {currentStep.code}
-                    </HighlightCode>
-                  </div>
 
-                  <footer>
-                    <div className="flex justify-between">
+                  <div>
+                    <div
+                      className={cx(
+                        "flex  mb-4",
+                        currentStepIndex === 0
+                          ? "justify-end"
+                          : "justify-between"
+                      )}
+                    >
                       {currentStepIndex > 0 && (
                         <Link
-                          className="inline-flex items-center px-4 py-2 mt-4 mr-4 text-sm font-medium text-white bg-grey-300 border border-transparent transition-colors rounded-md shadow-sm hover:bg-grey-400 focus:outline-none"
+                          className="inline-flex items-center px-4 py-2 mr-4 text-sm font-medium text-white bg-grey-300 border border-transparent transition-colors rounded-md shadow-sm hover:bg-grey-400 focus:outline-none"
                           href={`?tab=${currentTabIndex}&step=${
                             currentStepIndex - 1
                           }`}
@@ -332,16 +334,22 @@ const Story = () => {
 
                       {currentStepIndex !== currentTab.story.length - 1 && (
                         <Link
-                          className="inline-flex items-center px-4 py-2 mt-4 text-sm font-medium text-white bg-xenon-600 border border-transparent rounded-md shadow-sm transition-colors hover:bg-xenon-700 focus:outline-none"
+                          className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-xenon-600 border border-transparent rounded-md shadow-sm transition-colors hover:bg-xenon-700 focus:outline-none"
                           href={`?tab=${currentTabIndex}&step=${
                             currentStepIndex + 1
                           }`}
                         >
-                          {currentTab.story[currentStepIndex + 1].name}
+                          Next: {currentTab.story[currentStepIndex + 1].name}
                         </Link>
                       )}
                     </div>
-                  </footer>
+                  </div>
+
+                  <div className="p-8 rounded-lg bg-grey-100 text-sm overflow-scroll leading-loose shadow-lg dark:bg-slate-800 dark:text-gray-200">
+                    <HighlightCode className="javascript">
+                      {currentStep.code}
+                    </HighlightCode>
+                  </div>
                 </div>
               </div>
             </div>
