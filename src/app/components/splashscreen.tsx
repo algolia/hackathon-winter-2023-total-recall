@@ -2,7 +2,11 @@
 
 import Link from "next/link";
 
-const SplashScreen = () => {
+const SplashScreen = ({
+  setIsClicked,
+}: {
+  setIsClicked: (value: boolean) => void;
+}) => {
   return (
     <div className="grid grid-cols-2 items-center">
       <div className="flex items-center justify-center">
@@ -25,9 +29,12 @@ const SplashScreen = () => {
             product page.
           </p>
 
-          <Link href="?tab=0&step=0" className="font-bold text-xenon-500">
+          <button
+            className="font-bold text-xenon-500"
+            onClick={() => setIsClicked(true)}
+          >
             Let's start the demo ▶
-          </Link>
+          </button>
         </div>
       </div>
     </div>
