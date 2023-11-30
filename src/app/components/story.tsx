@@ -2,7 +2,7 @@
 
 import cx from 'classnames';
 import algoliasearch from 'algoliasearch/lite';
-import { Hit } from 'instantsearch.js';
+import { Hit as BaseHit } from 'instantsearch.js';
 import {
   Configure,
   Highlight,
@@ -91,48 +91,7 @@ const tabs = [
         app: (
           <div>
             <SearchBox />
-            <Hits
-              classNames={{ list: 'space-y-8' }}
-              hitComponent={({ hit }: HitProps) => (
-                <div className="space-y-4">
-                  <div className="grid grid-cols-3 gap-3">
-                    <Image
-                      src={hit.header_image}
-                      width={460}
-                      height={215}
-                      alt={hit.name}
-                      className="aspect-video w-full rounded"
-                    />
-                    <div className="col-span-2">
-                      <h2 className="text-xl font-bold">
-                        <Highlight hit={hit} attribute="name" />
-                      </h2>
-                      <p>
-                        <Snippet hit={hit} attribute="short_description" />
-                      </p>
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    <Tags tags={hit.tags} />
-                    {hit.screenshots.length && (
-                      <ul className="grid grid-cols-5 -mx-1">
-                        {hit.screenshots.slice(0, 5).map((screenshot) => (
-                          <li key={screenshot} className="block mx-1">
-                            <Image
-                              src={screenshot}
-                              width={479}
-                              height={262}
-                              alt={screenshot}
-                              className="aspect-ratio"
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                </div>
-              )}
-            />
+            <Hits classNames={{ list: 'space-y-8' }} hitComponent={Hit} />
           </div>
         ),
         code: `function App() {
@@ -300,7 +259,7 @@ const Story = () => {
 };
 
 type HitProps = {
-  hit: Hit<{
+  hit: BaseHit<{
     header_image: string;
     name: string;
     short_description: string;
@@ -309,6 +268,48 @@ type HitProps = {
     screenshots: string[];
   }>;
 };
+
+function Hit({ hit }: HitProps) {
+  return (
+    <div className="space-y-4">
+      <div className="grid grid-cols-3 gap-3">
+        <Image
+          src={hit.header_image}
+          width={460}
+          height={215}
+          alt={hit.name}
+          className="aspect-video w-full rounded"
+        />
+        <div className="col-span-2">
+          <h2 className="text-xl font-bold">
+            <Highlight hit={hit} attribute="name" />
+          </h2>
+          <p>
+            <Snippet hit={hit} attribute="short_description" />
+          </p>
+        </div>
+      </div>
+      <div className="space-y-4">
+        <Tags tags={hit.tags} />
+        {hit.screenshots.length && (
+          <ul className="grid grid-cols-5 -mx-1">
+            {hit.screenshots.slice(0, 5).map((screenshot) => (
+              <li key={screenshot} className="block mx-1">
+                <Image
+                  src={screenshot}
+                  width={479}
+                  height={262}
+                  alt={screenshot}
+                  className="aspect-ratio"
+                />
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+}
 
 type TagsProps = {
   tags: string[];
