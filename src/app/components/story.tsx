@@ -175,23 +175,29 @@ const Story = () => {
           <div>
             <div className="hidden sm:block">
               <nav className="flex flex-wrap space-x-2 p-2" aria-label="Tabs">
-                {tabs.map((tab, index) => (
-                  <Link
-                    key={tab.name}
-                    href={`?tab=${index}`}
-                    className={cx(
-                      currentTabIndex === index
-                        ? 'bg-xenon-100 text-xenon-500'
-                        : 'text-grey-600 hover:text-grey-700',
-                      'rounded-full px-3 py-2 text-xs font-medium uppercase'
-                    )}
-                    aria-current={
-                      currentTabIndex === index ? 'page' : undefined
-                    }
-                  >
-                    {tab.name}
-                  </Link>
-                ))}
+                {tabs.map((tab, index) => {
+                  const isDisabled = tab.story.length === 0;
+
+                  return (
+                    <Link
+                      key={tab.name}
+                      href={isDisabled ? '#' : `?tab=${index}`}
+                      className={cx(
+                        currentTabIndex === index
+                          ? 'bg-xenon-100 text-xenon-500'
+                          : 'text-grey-600 hover:text-grey-700',
+                        'rounded-full px-3 py-2 text-xs font-medium uppercase',
+                        isDisabled && 'cursor-not-allowed'
+                      )}
+                      aria-current={
+                        currentTabIndex === index ? 'page' : undefined
+                      }
+                      title={isDisabled ? 'This demo is not available yet' : ''}
+                    >
+                      {tab.name}
+                    </Link>
+                  );
+                })}
               </nav>
 
               <div className="px-4 pt-6 sm:px-0">
