@@ -1,12 +1,12 @@
-import { useRelatedProducts } from '@algolia/recommend-react/dist/esm/useRelatedProducts';
-import recommend from '@algolia/recommend';
-import type { RelatedProductsProps } from '@algolia/recommend-react';
-import { Fragment, createElement } from 'react';
-import { Pragma } from '@algolia/recommend-vdom';
+import { useRelatedProducts } from "@algolia/recommend-react/dist/esm/useRelatedProducts";
+import recommend from "@algolia/recommend";
+import type { RelatedProductsProps } from "@algolia/recommend-react";
+import { Fragment, createElement } from "react";
+import { Pragma } from "@algolia/recommend-vdom";
 
 const recommendClient = recommend(
-  'PVXYD3XMQP',
-  '69636a752c16bee55133304edea993f7'
+  "PVXYD3XMQP",
+  "69636a752c16bee55133304edea993f7"
 );
 
 export function RelatedProducts<TObject>(props: RelatedProductsProps<TObject>) {

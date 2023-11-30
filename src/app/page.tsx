@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import SplashScreen from './components/splashscreen';
-import Story from './components/story';
-import { useSearchParams } from 'next/navigation';
+import SplashScreen from "./components/splashscreen";
+import Story from "./components/story";
+import { useSearchParams } from "next/navigation";
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -13,7 +13,7 @@ export default function Home() {
         <h1>Hello, this is the best demo you'll see today guys</h1>
       </header>
 
-      {!searchParams.get('tab') && !searchParams.get('step') ? (
+      {!searchParams.get("tab") && !searchParams.get("step") ? (
         <SplashScreen />
       ) : (
         <Story />

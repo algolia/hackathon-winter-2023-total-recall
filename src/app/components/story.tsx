@@ -1,39 +1,39 @@
-'use client';
+"use client";
 
-import cx from 'classnames';
-import algoliasearch from 'algoliasearch/lite';
-import { Hit as BaseHit } from 'instantsearch.js';
+import cx from "classnames";
+import algoliasearch from "algoliasearch/lite";
+import { Hit as BaseHit } from "instantsearch.js";
 import {
   Configure,
   Highlight,
   Hits,
   InstantSearch,
   Snippet,
-} from 'react-instantsearch';
-import { useState } from 'react';
-import HighlightCode from 'react-highlight';
-import Image from 'next/image';
+} from "react-instantsearch";
+import { useState } from "react";
+import HighlightCode from "react-highlight";
+import Image from "next/image";
 
-import { RelatedProducts, SearchBox } from './demo';
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
+import { RelatedProducts, SearchBox } from "./demo";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const searchClient = algoliasearch(
-  'PVXYD3XMQP',
-  '69636a752c16bee55133304edea993f7'
+  "PVXYD3XMQP",
+  "69636a752c16bee55133304edea993f7"
 );
 
 const tabs = [
   {
-    name: 'Complementary recommendations',
-    title: 'Complementary recommendations',
+    name: "Complementary recommendations",
+    title: "Complementary recommendations",
     description:
-      'Drive cross sells by showing products that complement the current selection.',
+      "Drive cross sells by showing products that complement the current selection.",
     story: [
       {
-        name: 'Set up InstantSearch',
+        name: "Set up InstantSearch",
         description:
-          'Install the <code>react-instantsearch</code> package. And create your DOM structure.',
+          "Install the <code>react-instantsearch</code> package. And create your DOM structure.",
         app: (
           <div className="flex flex-col gap-4">
             <div className="w-full h-16 border-grey-200 border-4 border-dashed rounded-lg" />
@@ -53,8 +53,8 @@ const tabs = [
 }`,
       },
       {
-        name: 'Add a search box',
-        description: 'Add a search box to let your users search for products.',
+        name: "Add a search box",
+        description: "Add a search box to let your users search for products.",
         app: (
           <div className="flex flex-col gap-4">
             <SearchBox />
@@ -74,13 +74,13 @@ const tabs = [
 }`,
       },
       {
-        name: 'Add hits',
-        description: 'Add hits display the results of your search.',
+        name: "Add hits",
+        description: "Add hits display the results of your search.",
         app: (
           <div>
             <SearchBox />
             <Hits
-              classNames={{ list: 'grid grid-cols-3 gap-2' }}
+              classNames={{ list: "grid grid-cols-3 gap-2" }}
               hitComponent={({ hit }) => (
                 <pre className="bg-gray-200 overflow-scroll text-sm aspect-square text-grey-600 p-4 rounded-lg">
                   {JSON.stringify(hit, null, 2)}
@@ -99,13 +99,13 @@ const tabs = [
 }`,
       },
       {
-        name: 'Customize hits',
+        name: "Customize hits",
         description:
-          'Customize the rendering of your hits with the <code>hitComponent</code> prop.',
+          "Customize the rendering of your hits with the <code>hitComponent</code> prop.",
         app: (
           <div>
             <SearchBox />
-            <Hits classNames={{ list: 'space-y-8' }} hitComponent={Hit} />
+            <Hits classNames={{ list: "space-y-8" }} hitComponent={Hit} />
           </div>
         ),
         code: `function App() {
@@ -131,13 +131,13 @@ const tabs = [
 }`,
       },
       {
-        name: 'Display complementary recommendations',
-        description: 'Add recommended titles for each search result.',
+        name: "Display complementary recommendations",
+        description: "Add recommended titles for each search result.",
         app: (
           <div>
             <SearchBox />
             <Hits
-              classNames={{ list: 'space-y-8' }}
+              classNames={{ list: "space-y-8" }}
               hitComponent={({ hit }: HitProps) => (
                 <Hit hit={hit}>
                   <div>
@@ -148,7 +148,7 @@ const tabs = [
                       indexName="games"
                       objectIDs={[hit.objectID]}
                       maxRecommendations={3}
-                      itemComponent={({ item }: { item: HitProps['hit'] }) => (
+                      itemComponent={({ item }: { item: HitProps["hit"] }) => (
                         <>
                           <Image
                             src={item.header_image}
@@ -197,37 +197,37 @@ const tabs = [
     ],
   },
   {
-    name: 'Alternative recommendations',
-    title: 'Complementary recommendations',
+    name: "Alternative recommendations",
+    title: "Complementary recommendations",
     description:
-      'Maximize conversions, catalog exposure and time spent on site by showcasing alternative products or similar content.',
+      "Maximize conversions, catalog exposure and time spent on site by showcasing alternative products or similar content.",
     story: [],
   },
   {
-    name: 'Trending items',
-    title: 'Trending items',
+    name: "Trending items",
+    title: "Trending items",
     description:
-      'Inspire visitors by showing them specific items throughout the full product catalog and per specific facet value.',
+      "Inspire visitors by showing them specific items throughout the full product catalog and per specific facet value.",
     story: [],
   },
   {
-    name: 'Trending facets',
-    title: 'Trending facets',
-    description: 'Show trending categories like FPS, Adventure or RPG.',
+    name: "Trending facets",
+    title: "Trending facets",
+    description: "Show trending categories like FPS, Adventure or RPG.",
     story: [],
   },
   {
-    name: 'Looking similar',
-    title: 'Looking similar',
-    description: 'Find visual similarities to increase catalog discovery.',
+    name: "Looking similar",
+    title: "Looking similar",
+    description: "Find visual similarities to increase catalog discovery.",
     story: [],
   },
 ];
 
 const Story = () => {
   const searchParams = useSearchParams();
-  const currentTabIndex = Number(searchParams.get('tab'));
-  const currentStepIndex = Number(searchParams.get('step'));
+  const currentTabIndex = Number(searchParams.get("tab"));
+  const currentStepIndex = Number(searchParams.get("step"));
 
   const currentTab = tabs[currentTabIndex];
   const currentStep = currentTab.story[currentStepIndex];
@@ -236,7 +236,7 @@ const Story = () => {
     <InstantSearch searchClient={searchClient} indexName="games">
       <Configure
         hitsPerPage={9}
-        attributesToSnippet={['short_description:20']}
+        attributesToSnippet={["short_description:20"]}
       />
       <div className="w-full">
         <div className="grid grid-cols-2 gap-6">
@@ -255,18 +255,18 @@ const Story = () => {
                   return (
                     <Link
                       key={tab.name}
-                      href={isDisabled ? '#' : `?tab=${index}`}
+                      href={isDisabled ? "#" : `?tab=${index}`}
                       className={cx(
                         currentTabIndex === index
-                          ? 'bg-xenon-100 text-xenon-500'
-                          : 'text-grey-600 hover:text-grey-700',
-                        'rounded-full px-3 py-2 text-xs font-medium uppercase',
-                        isDisabled && 'cursor-not-allowed'
+                          ? "bg-xenon-100 text-xenon-500"
+                          : "text-grey-600 hover:text-grey-700",
+                        "rounded-full px-3 py-2 text-xs font-medium uppercase",
+                        isDisabled && "cursor-not-allowed"
                       )}
                       aria-current={
-                        currentTabIndex === index ? 'page' : undefined
+                        currentTabIndex === index ? "page" : undefined
                       }
-                      title={isDisabled ? 'This demo is not available yet' : ''}
+                      title={isDisabled ? "This demo is not available yet" : ""}
                     >
                       {tab.name}
                     </Link>
@@ -289,7 +289,7 @@ const Story = () => {
                     <h3 className="text-lg font-bold leading-6 text-grey-900">
                       <span className="-top-0.5 relative px-3 py-0.5 rounded-full text-sm font-medium bg-grey-100 text-grey-600">
                         {currentStepIndex + 1}/{currentTab.story.length}
-                      </span>{' '}
+                      </span>{" "}
                       {currentStep.name}
                     </h3>
 
@@ -410,7 +410,7 @@ function Tags({ tags }: TagsProps) {
         >
           {tag}
         </span>
-      ))}{' '}
+      ))}{" "}
       {tags.length > limit && (
         <button
           className="text-sm underline"
@@ -418,7 +418,7 @@ function Tags({ tags }: TagsProps) {
             setShouldShowMore((state) => !state);
           }}
         >
-          See {shouldShowMore ? 'less' : 'more'}
+          See {shouldShowMore ? "less" : "more"}
         </button>
       )}
     </>

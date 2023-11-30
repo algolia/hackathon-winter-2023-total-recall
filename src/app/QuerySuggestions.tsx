@@ -1,5 +1,5 @@
-import { Hits, Index, IndexProps } from 'react-instantsearch';
-import { reverseHighlight } from 'instantsearch.js/es/helpers';
+import { Hits, Index, IndexProps } from "react-instantsearch";
+import { reverseHighlight } from "instantsearch.js/es/helpers";
 
 type QuerySuggestionsProps = IndexProps;
 
@@ -25,7 +25,7 @@ function QuerySuggestion({ hit }: QuerySuggestionProps) {
     <button
       dangerouslySetInnerHTML={{
         __html: reverseHighlight({
-          attribute: 'query',
+          attribute: "query",
           hit,
         }),
       }}

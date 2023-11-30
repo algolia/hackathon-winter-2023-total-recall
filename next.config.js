@@ -3,7 +3,7 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: 'cdn.akamai.steamstatic.com',
+        hostname: "cdn.akamai.steamstatic.com",
       },
     ],
   },

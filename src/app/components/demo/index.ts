@@ -1,2 +1,2 @@
-export * from './RelatedProducts';
-export * from './SearchBox';
+export * from "./RelatedProducts";
+export * from "./SearchBox";
