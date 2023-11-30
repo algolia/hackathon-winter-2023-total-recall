@@ -14,7 +14,7 @@ import { useState } from 'react';
 import HighlightCode from 'react-highlight';
 import Image from 'next/image';
 
-import { SearchBox } from './demo/SearchBox';
+import { SearchBox } from './demo';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
@@ -22,14 +22,6 @@ const searchClient = algoliasearch(
   'PVXYD3XMQP',
   '69636a752c16bee55133304edea993f7'
 );
-
-function RawHit({ hit }: HitProps) {
-  return (
-    <pre className="bg-gray-200 overflow-scroll text-sm aspect-square text-grey-600 p-4 rounded-lg">
-      {JSON.stringify(hit, null, 2)}
-    </pre>
-  );
-}
 
 const tabs = [
   {
@@ -75,7 +67,11 @@ const tabs = [
             <SearchBox />
             <Hits
               classNames={{ list: 'grid grid-cols-3 gap-2' }}
-              hitComponent={RawHit}
+              hitComponent={({ hit }) => (
+                <pre className="bg-gray-200 overflow-scroll text-sm aspect-square text-grey-600 p-4 rounded-lg">
+                  {JSON.stringify(hit, null, 2)}
+                </pre>
+              )}
             />
           </div>
         ),
@@ -95,7 +91,48 @@ const tabs = [
         app: (
           <div>
             <SearchBox />
-            <Hits classNames={{ list: 'space-y-8' }} hitComponent={Hit} />
+            <Hits
+              classNames={{ list: 'space-y-8' }}
+              hitComponent={({ hit }: HitProps) => (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-3 gap-3">
+                    <Image
+                      src={hit.header_image}
+                      width={460}
+                      height={215}
+                      alt={hit.name}
+                      className="aspect-video w-full rounded"
+                    />
+                    <div className="col-span-2">
+                      <h2 className="text-xl font-bold">
+                        <Highlight hit={hit} attribute="name" />
+                      </h2>
+                      <p>
+                        <Snippet hit={hit} attribute="short_description" />
+                      </p>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <Tags tags={hit.tags} />
+                    {hit.screenshots.length && (
+                      <ul className="grid grid-cols-5 -mx-1">
+                        {hit.screenshots.slice(0, 5).map((screenshot) => (
+                          <li key={screenshot} className="block mx-1">
+                            <Image
+                              src={screenshot}
+                              width={479}
+                              height={262}
+                              alt={screenshot}
+                              className="aspect-ratio"
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                </div>
+              )}
+            />
           </div>
         ),
         code: `function App() {
@@ -272,48 +309,6 @@ type HitProps = {
     screenshots: string[];
   }>;
 };
-
-function Hit({ hit }: HitProps) {
-  return (
-    <div className="space-y-4">
-      <div className="grid grid-cols-3 gap-3">
-        <Image
-          src={hit.header_image}
-          width={460}
-          height={215}
-          alt={hit.name}
-          className="aspect-video w-full rounded"
-        />
-        <div className="col-span-2">
-          <h2 className="text-xl font-bold">
-            <Highlight hit={hit} attribute="name" />
-          </h2>
-          <p>
-            <Snippet hit={hit} attribute="short_description" />
-          </p>
-        </div>
-      </div>
-      <div className="space-y-4">
-        <Tags tags={hit.tags} />
-        {hit.screenshots.length && (
-          <ul className="grid grid-cols-5 -mx-1">
-            {hit.screenshots.slice(0, 5).map((screenshot) => (
-              <li key={screenshot} className="block mx-1">
-                <Image
-                  src={screenshot}
-                  width={479}
-                  height={262}
-                  alt={screenshot}
-                  className="aspect-ratio"
-                />
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-    </div>
-  );
-}
 
 type TagsProps = {
   tags: string[];
