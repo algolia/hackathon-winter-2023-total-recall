@@ -372,7 +372,7 @@ function Hit({ hit, children }: HitProps) {
           width={460}
           height={215}
           alt={hit.name}
-          className="aspect-video w-full rounded bg-slate-300 shadow"
+          className="aspect-video w-full rounded bg-slate-300 shadow animate-pulse dark:bg-slate-900"
           loading="lazy"
         />
         <div className="col-span-2">
@@ -397,7 +397,7 @@ function Hit({ hit, children }: HitProps) {
                     width={479}
                     height={262}
                     alt={screenshot}
-                    className="aspect-ratio bg-slate-300 rounded shadow"
+                    className="aspect-ratio bg-slate-300 rounded shadow animate-pulse dark:bg-slate-900"
                     loading="lazy"
                   />
                 </li>
