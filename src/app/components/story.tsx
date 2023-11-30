@@ -46,7 +46,7 @@ const tabs = [
         ),
         code: `function App() {
   return (
-    <InstantSearch searchClient={searchClient} indexName="instant_search">
+    <InstantSearch searchClient={searchClient} indexName="games">
       {/* ... */}
     </InstantSearch>
   );
@@ -69,7 +69,7 @@ const tabs = [
         ),
         code: `function App() {
   return (
-    <InstantSearch searchClient={searchClient} indexName="instant_search">
+    <InstantSearch searchClient={searchClient} indexName="games">
       <SearchBox />
     </InstantSearch>
   );
@@ -100,7 +100,7 @@ const tabs = [
         ),
         code: `function App() {
   return (
-    <InstantSearch searchClient={searchClient} indexName="instant_search">
+    <InstantSearch searchClient={searchClient} indexName="games">
       <SearchBox />
       <Hits />
     </InstantSearch>
@@ -121,7 +121,7 @@ const tabs = [
         ),
         code: `function App() {
   return (
-    <InstantSearch searchClient={searchClient} indexName="instant_search">
+    <InstantSearch searchClient={searchClient} indexName="games">
       <SearchBox />
       <Hits
         hitComponent={({ hit }) => (
@@ -180,7 +180,7 @@ const tabs = [
         ),
         code: `function App() {
   return (
-    <InstantSearch searchClient={searchClient} indexName="instant_search">
+    <InstantSearch searchClient={searchClient} indexName="games">
       <SearchBox />
       <Hits
         hitComponent={({ hit }) => (
