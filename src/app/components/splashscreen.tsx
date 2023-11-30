@@ -19,10 +19,10 @@ const SplashScreen = ({
       </div>
       <div className="flex items-center justify-center">
         <div className="flex flex-col items-start gap-6 w-full max-w-[500px]">
-          <h2 className="text-2xl text-grey-800">
+          <h2 className="text-2xl text-grey-800 dark:text-grey-200">
             How to implement personalized recommendations with Algolia
           </h2>
-          <p className="text-grey-600 text-pretty">
+          <p className="text-grey-600 text-pretty dark:text-grey-400">
             With Algolia Recommend, you can easily add personalized product
             recommendations to your e-commerce website. This demo shows how to
             use Algolia Recommend to display personalized recommendations on a
@@ -30,10 +30,11 @@ const SplashScreen = ({
           </p>
 
           <button
-            className="font-bold text-xenon-500"
+            className="text-xenon-500 dark:text-xenon-300 group"
             onClick={() => setIsClicked(true)}
           >
-            Let's start the demo ▶
+            Let's start the demo{" "}
+            <span className="relative top-0.5 group-hover:left-2">▶</span>
           </button>
         </div>
       </div>

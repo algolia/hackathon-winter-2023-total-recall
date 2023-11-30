@@ -28,11 +28,13 @@ export default function Home() {
 
   return (
     <main className="min-h-screen p-24">
-      <header className="text-center mb-24">
-        <h1 className="text-4xl font-normal leading-9">
-          Hello, this is the best demo you'll see today guys
-        </h1>
-      </header>
+      {!searchParams.get("tab") && !searchParams.get("step") && !isClicked && (
+        <header className="text-center mb-24">
+          <h1 className="text-4xl font-normal leading-9">
+            Hello, this is the best demo you'll see today guys
+          </h1>
+        </header>
+      )}
 
       <motion.div
         style={{ display: "block" }}

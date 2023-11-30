@@ -1,45 +1,45 @@
-'use client'
+"use client";
 
-import cx from 'classnames'
-import algoliasearch from 'algoliasearch/lite'
-import { Hit as BaseHit } from 'instantsearch.js'
+import cx from "classnames";
+import algoliasearch from "algoliasearch/lite";
+import { Hit as BaseHit } from "instantsearch.js";
 import {
   Configure,
   Highlight,
   Hits,
   InstantSearch,
   Snippet,
-} from 'react-instantsearch'
-import { useState } from 'react'
-import HighlightCode from 'react-highlight'
-import Image from 'next/image'
+} from "react-instantsearch";
+import { useState } from "react";
+import HighlightCode from "react-highlight";
+import Image from "next/image";
 
-import { RelatedProducts, SearchBox } from './demo'
-import { useSearchParams } from 'next/navigation'
-import Link from 'next/link'
+import { RelatedProducts, SearchBox } from "./demo";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const searchClient = algoliasearch(
-  'PVXYD3XMQP',
-  '69636a752c16bee55133304edea993f7'
-)
+  "PVXYD3XMQP",
+  "69636a752c16bee55133304edea993f7"
+);
 
 const tabs = [
   {
-    name: 'Complementary recommendations',
-    title: 'Complementary recommendations',
+    name: "Complementary recommendations",
+    title: "Complementary recommendations",
     description:
-      'Drive cross sells by showing products that complement the current selection.',
+      "Drive cross sells by showing products that complement the current selection.",
     story: [
       {
-        name: 'Set up InstantSearch',
+        name: "Set up InstantSearch",
         description:
-          'Install the <code>react-instantsearch</code> package. And create your DOM structure.',
+          "Install the <code>react-instantsearch</code> package. And create your DOM structure.",
         app: (
           <div className="flex flex-col gap-4">
-            <div className="w-full h-16 border-grey-200 border-4 border-dashed rounded-lg" />
+            <div className="w-full h-16 border-grey-200 border-4 border-dashed rounded-lg dark:border-slate-900" />
             <div className="grid grid-cols-3 gap-2">
               {Array.from({ length: 9 }).map(() => (
-                <div className="aspect-square border-grey-200 border-4 border-dashed rounded-lg"></div>
+                <div className="aspect-square border-grey-200 border-4 border-dashed rounded-lg dark:border-slate-900"></div>
               ))}
             </div>
           </div>
@@ -53,8 +53,8 @@ const tabs = [
 }`,
       },
       {
-        name: 'Add a search box',
-        description: 'Add a search box to let your users search for products.',
+        name: "Add a search box",
+        description: "Add a search box to let your users search for products.",
         app: (
           <div className="flex flex-col gap-4">
             <span className="appear">
@@ -62,7 +62,7 @@ const tabs = [
             </span>
             <div className="grid grid-cols-3 gap-2">
               {Array.from({ length: 9 }).map(() => (
-                <div className="aspect-square border-grey-200 border-4 border-dashed rounded-lg"></div>
+                <div className="aspect-square border-grey-200 border-4 border-dashed rounded-lg dark:border-slate-900"></div>
               ))}
             </div>
           </div>
@@ -76,16 +76,21 @@ const tabs = [
 }`,
       },
       {
-        name: 'Add hits',
-        description: 'Add hits display the results of your search.',
+        name: "Add hits",
+        description: "Add hits display the results of your search.",
         app: (
           <div>
             <SearchBox />
             <span className="appear">
               <Hits
-                classNames={{ list: 'grid grid-cols-3 gap-2' }}
+                classNames={{ list: "grid grid-cols-3 gap-2" }}
                 hitComponent={({ hit }) => (
-                  <pre className="bg-gray-200 overflow-scroll text-sm aspect-square text-grey-600 p-4 rounded-lg">
+                  <pre
+                    className="bg-gray-200 overflow-scroll text-sm aspect-square text-grey-600 p-4 rounded-lg appear dark:bg-slate-900 dark:text-gray-200"
+                    style={{
+                      transitionDelay: hit.__position * 50 + "ms",
+                    }}
+                  >
                     {JSON.stringify(hit, null, 2)}
                   </pre>
                 )}
@@ -103,14 +108,14 @@ const tabs = [
 }`,
       },
       {
-        name: 'Customize hits',
+        name: "Customize hits",
         description:
-          'Customize the rendering of your hits with the <code>hitComponent</code> prop.',
+          "Customize the rendering of your hits with the <code>hitComponent</code> prop.",
         app: (
           <div>
             <SearchBox />
             <span className="appear">
-              <Hits classNames={{ list: 'space-y-8' }} hitComponent={Hit} />
+              <Hits classNames={{ list: "space-y-8" }} hitComponent={Hit} />
             </span>
           </div>
         ),
@@ -137,13 +142,13 @@ const tabs = [
 }`,
       },
       {
-        name: 'Display complementary recommendations',
-        description: 'Add recommended titles for each search result.',
+        name: "Display complementary recommendations",
+        description: "Add recommended titles for each search result.",
         app: (
           <div>
             <SearchBox />
             <Hits
-              classNames={{ list: 'space-y-8' }}
+              classNames={{ list: "space-y-8" }}
               hitComponent={({ hit }: HitProps) => (
                 <Hit hit={hit}>
                   <div className="appear">
@@ -154,7 +159,7 @@ const tabs = [
                       indexName="games"
                       objectIDs={[hit.objectID]}
                       maxRecommendations={3}
-                      itemComponent={({ item }: { item: HitProps['hit'] }) => (
+                      itemComponent={({ item }: { item: HitProps["hit"] }) => (
                         <>
                           <Image
                             src={item.header_image}
@@ -203,50 +208,50 @@ const tabs = [
     ],
   },
   {
-    name: 'Alternative recommendations',
-    title: 'Complementary recommendations',
+    name: "Alternative recommendations",
+    title: "Complementary recommendations",
     description:
-      'Maximize conversions, catalog exposure and time spent on site by showcasing alternative products or similar content.',
+      "Maximize conversions, catalog exposure and time spent on site by showcasing alternative products or similar content.",
     story: [],
   },
   {
-    name: 'Trending items',
-    title: 'Trending items',
+    name: "Trending items",
+    title: "Trending items",
     description:
-      'Inspire visitors by showing them specific items throughout the full product catalog and per specific facet value.',
+      "Inspire visitors by showing them specific items throughout the full product catalog and per specific facet value.",
     story: [],
   },
   {
-    name: 'Trending facets',
-    title: 'Trending facets',
-    description: 'Show trending categories like FPS, Adventure or RPG.',
+    name: "Trending facets",
+    title: "Trending facets",
+    description: "Show trending categories like FPS, Adventure or RPG.",
     story: [],
   },
   {
-    name: 'Looking similar',
-    title: 'Looking similar',
-    description: 'Find visual similarities to increase catalog discovery.',
+    name: "Looking similar",
+    title: "Looking similar",
+    description: "Find visual similarities to increase catalog discovery.",
     story: [],
   },
-]
+];
 
 const Story = () => {
-  const searchParams = useSearchParams()
-  const currentTabIndex = Number(searchParams.get('tab'))
-  const currentStepIndex = Number(searchParams.get('step'))
+  const searchParams = useSearchParams();
+  const currentTabIndex = Number(searchParams.get("tab"));
+  const currentStepIndex = Number(searchParams.get("step"));
 
-  const currentTab = tabs[currentTabIndex]
-  const currentStep = currentTab.story[currentStepIndex]
+  const currentTab = tabs[currentTabIndex];
+  const currentStep = currentTab.story[currentStepIndex];
 
   return (
     <InstantSearch searchClient={searchClient} indexName="games">
       <Configure
         hitsPerPage={9}
-        attributesToSnippet={['short_description:20']}
+        attributesToSnippet={["short_description:20"]}
       />
       <div className="w-full">
         <div className="grid grid-cols-2 gap-6">
-          <div className="bg-grey-100 shadow-lg rounded-xl text-black">
+          <div className="bg-grey-100 shadow-lg rounded-xl text-black dark:bg-slate-800 dark:text-gray-200">
             <div className="p-4 shadow-lg w-full h-full rounded-lg">
               {currentStep.app}
             </div>
@@ -256,57 +261,57 @@ const Story = () => {
             <div className="hidden sm:block">
               <nav className="flex flex-wrap space-x-2 p-2" aria-label="Tabs">
                 {tabs.map((tab, index) => {
-                  const isDisabled = tab.story.length === 0
+                  const isDisabled = tab.story.length === 0;
 
                   return (
                     <Link
                       key={tab.name}
-                      href={isDisabled ? '#' : `?tab=${index}`}
+                      href={isDisabled ? "#" : `?tab=${index}`}
                       className={cx(
                         currentTabIndex === index
-                          ? 'bg-xenon-100 text-xenon-500'
-                          : 'text-grey-600 hover:text-grey-700',
-                        'rounded-full px-3 py-2 text-xs font-medium uppercase',
-                        isDisabled && 'cursor-not-allowed'
+                          ? "bg-xenon-100 text-xenon-500"
+                          : "text-grey-600 hover:text-grey-700",
+                        "rounded-full px-3 py-2 text-xs font-medium uppercase",
+                        isDisabled && "cursor-not-allowed"
                       )}
                       aria-current={
-                        currentTabIndex === index ? 'page' : undefined
+                        currentTabIndex === index ? "page" : undefined
                       }
-                      title={isDisabled ? 'This demo is not available yet' : ''}
+                      title={isDisabled ? "This demo is not available yet" : ""}
                     >
                       {tab.name}
                     </Link>
-                  )
+                  );
                 })}
               </nav>
 
               <div className="px-4 pt-6 sm:px-0">
                 <header className="py-4">
-                  <h2 className="text-2xl font-bold leading-7 text-grey-900 sm:text-3xl sm:truncate">
+                  <h2 className="text-2xl font-bold leading-7 text-grey-900 sm:text-3xl sm:truncate dark:text-gray-100">
                     {currentTab.title}
                   </h2>
-                  <p className="mt-1 text-sm text-grey-500">
+                  <p className="mt-1 text-sm text-grey-500 dark:text-gray-300">
                     {currentTab.description}
                   </p>
                 </header>
 
                 <div>
                   <div className="flex flex-col items-start justify-between py-4">
-                    <h3 className="text-lg font-bold leading-6 text-grey-800">
+                    <h3 className="text-lg font-bold leading-6 text-grey-800 dark:text-gray-200">
                       <span className="-top-0.5 relative px-3 py-0.5 rounded-full text-sm font-medium bg-xenon-100 border border-xenon-200 text-xenon-700">
                         {currentStepIndex + 1}/{currentTab.story.length}
-                      </span>{' '}
+                      </span>{" "}
                       {currentStep.name}
                     </h3>
 
                     <p
-                      className="mt-1 text-sm text-grey-500"
+                      className="mt-1 text-sm text-grey-500 dark:text-gray-300"
                       dangerouslySetInnerHTML={{
                         __html: currentStep.description,
                       }}
                     ></p>
                   </div>
-                  <div className="p-8 rounded-lg bg-grey-100 text-sm overflow-scroll leading-loose shadow-lg">
+                  <div className="p-8 rounded-lg bg-grey-100 text-sm overflow-scroll leading-loose shadow-lg dark:bg-slate-800 dark:text-gray-200">
                     <HighlightCode className="javascript">
                       {currentStep.code}
                     </HighlightCode>
@@ -344,19 +349,19 @@ const Story = () => {
         </div>
       </div>
     </InstantSearch>
-  )
-}
+  );
+};
 
 type HitProps = React.PropsWithChildren<{
   hit: BaseHit<{
-    header_image: string
-    name: string
-    short_description: string
-    tags: string[]
-    genres: string[]
-    screenshots: string[]
-  }>
-}>
+    header_image: string;
+    name: string;
+    short_description: string;
+    tags: string[];
+    genres: string[];
+    screenshots: string[];
+  }>;
+}>;
 
 function Hit({ hit, children }: HitProps) {
   return (
@@ -403,16 +408,16 @@ function Hit({ hit, children }: HitProps) {
         {children}
       </div>
     </div>
-  )
+  );
 }
 
 type TagsProps = {
-  tags: string[]
-}
+  tags: string[];
+};
 
 function Tags({ tags }: TagsProps) {
-  const [shouldShowMore, setShouldShowMore] = useState(false)
-  const limit = 5
+  const [shouldShowMore, setShouldShowMore] = useState(false);
+  const limit = 5;
 
   return (
     <>
@@ -423,19 +428,19 @@ function Tags({ tags }: TagsProps) {
         >
           {tag}
         </span>
-      ))}{' '}
+      ))}{" "}
       {tags.length > limit && (
         <button
           className="text-sm underline"
           onClick={() => {
-            setShouldShowMore((state) => !state)
+            setShouldShowMore((state) => !state);
           }}
         >
-          See {shouldShowMore ? 'less' : 'more'}
+          See {shouldShowMore ? "less" : "more"}
         </button>
       )}
     </>
-  )
+  );
 }
 
-export default Story
+export default Story;
