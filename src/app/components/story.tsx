@@ -38,8 +38,11 @@ const tabs = [
           <div className="flex flex-col gap-4">
             <div className="w-full h-16 border-grey-200 border-4 border-dashed rounded-lg dark:border-slate-900" />
             <div className="grid grid-cols-3 gap-2">
-              {Array.from({ length: 9 }).map(() => (
-                <div className="aspect-square border-grey-200 border-4 border-dashed rounded-lg dark:border-slate-900"></div>
+              {Array.from({ length: 9 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="aspect-square border-grey-200 border-4 border-dashed rounded-lg dark:border-slate-900"
+                ></div>
               ))}
             </div>
           </div>
@@ -61,8 +64,11 @@ const tabs = [
               <SearchBox />
             </span>
             <div className="grid grid-cols-3 gap-2">
-              {Array.from({ length: 9 }).map(() => (
-                <div className="aspect-square border-grey-200 border-4 border-dashed rounded-lg dark:border-slate-900"></div>
+              {Array.from({ length: 9 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="aspect-square border-grey-200 border-4 border-dashed rounded-lg dark:border-slate-900"
+                ></div>
               ))}
             </div>
           </div>
@@ -251,7 +257,7 @@ const Story = () => {
       />
       <div className="w-full">
         <div className="grid grid-cols-2 gap-6">
-          <div className="bg-grey-100 shadow-lg rounded-xl text-black dark:bg-slate-800 dark:text-gray-200">
+          <div className="bg-grey-100 shadow-lg rounded-xl text-black dark:bg-slate-800 dark:text-gray-200 max-h-[980px] overflow-auto">
             <div className="p-4 shadow-lg w-full h-full rounded-lg">
               {currentStep.app}
             </div>
@@ -381,7 +387,11 @@ function Hit({ hit, children }: HitProps) {
           height={215}
           alt={hit.name}
           className="aspect-video w-full rounded bg-slate-300 shadow animate-pulse dark:bg-slate-900"
-          loading="lazy"
+          onLoad={(event) => {
+            (event.target as HTMLImageElement).classList.remove(
+              "animate-pulse"
+            );
+          }}
         />
         <div className="col-span-2">
           <h2 className="text-xl font-bold">
@@ -406,7 +416,11 @@ function Hit({ hit, children }: HitProps) {
                     height={262}
                     alt={screenshot}
                     className="aspect-ratio bg-slate-300 rounded shadow animate-pulse dark:bg-slate-900"
-                    loading="lazy"
+                    onLoad={(event) => {
+                      (event.target as HTMLImageElement).classList.remove(
+                        "animate-pulse"
+                      );
+                    }}
                   />
                 </li>
               ))}

@@ -33,7 +33,7 @@ const SplashScreen = ({
             className="text-xenon-500 dark:text-xenon-300 group"
             onClick={() => setIsClicked(true)}
           >
-            Let's start the demo{" "}
+            Let&apos;s start the demo{" "}
             <span className="relative top-0.5 group-hover:left-2">▶</span>
           </button>
         </div>

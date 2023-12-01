@@ -56,7 +56,7 @@ export default function Home() {
                   "https://ca.slack-edge.com/T026AN50K-UAQATARPZ-398be3286b95-512",
               },
             ].map((author, index) => (
-              <span className="flex items-center">
+              <span className="flex items-center" key={author.name}>
                 <img
                   className="inline-block h-10 w-10 rounded-full"
                   src={author.avatar}
